@@ -70,8 +70,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\include\GL;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\include;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\lib\x64;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\lib;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\include\GL;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\include;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\lib\x64;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\lib;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -90,9 +94,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>discord-rpc.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -118,19 +124,33 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>discord-rpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>discord-rpc.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="discord.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="SDL2.dll" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets" Condition="Exists('..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets')" />
+    <Import Project="..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets" Condition="Exists('..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets'))" />
+  </Target>
 </Project>
