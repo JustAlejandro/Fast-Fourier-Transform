@@ -5,6 +5,7 @@
 #include "SDL_mixer.h"
 #include "SDL_opengl.h"
 #include "FFT.h"
+#include <debuggl.h>
 #include <string>
 #include <iostream>
 
@@ -70,7 +71,20 @@ bool initSDL() {
 	mainContext = SDL_GL_CreateContext(window);
 
 	setOpenGLAttributes();
+	SDL_GL_MakeCurrent(window, mainContext);
 
+	//Initialize GLEW
+	glewExperimental = GL_TRUE;
+	GLenum glewError = glewInit();
+	if (glewError != GLEW_OK) {
+		std::cout << "Error initializing GLEW! %s\n" << glewGetErrorString(glewError) << std::endl;
+		
+	}
+
+	const GLubyte* renderer = glGetString(GL_RENDERER);  // get renderer string
+	const GLubyte* version = glGetString(GL_VERSION);    // version as a string
+	std::cout << "Renderer: " << renderer << "\n";
+	std::cout << "OpenGL version supported:" << version << std::endl;
 	//V-sync
 	SDL_GL_SetSwapInterval(1);
 
@@ -91,8 +105,8 @@ bool setOpenGLAttributes() {
 	//Set the openGL version
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
 	//Double Buffering
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);

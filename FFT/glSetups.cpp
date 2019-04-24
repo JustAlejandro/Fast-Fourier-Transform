@@ -37,7 +37,7 @@ void glCleanup()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void chunkSetup(int width, int height, GLuint& FrameBuffer)
+void toTextureSetup(int width, int height, GLuint& FrameBuffer)
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, FrameBuffer);
 	glViewport(0, 0, width, height);

@@ -5,13 +5,13 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="UT Library">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,10 +34,10 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="..\lib\utgraphicsutil\debuggl.cc">
-      <Filter>Header Files</Filter>
+      <Filter>UT Library</Filter>
     </ClCompile>
     <ClCompile Include="..\lib\utgraphicsutil\jpegio.cc">
-      <Filter>Header Files</Filter>
+      <Filter>UT Library</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,20 +71,20 @@
     <ClInclude Include="SDLInit.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\lib\utgraphicsutil\portable_gl.h">
+      <Filter>UT Library</Filter>
+    </ClInclude>
     <ClInclude Include="..\lib\utgraphicsutil\debuggl.h">
-      <Filter>Header Files</Filter>
+      <Filter>UT Library</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\utgraphicsutil\image.h">
-      <Filter>Header Files</Filter>
+      <Filter>UT Library</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\utgraphicsutil\jpegio.h">
-      <Filter>Header Files</Filter>
+      <Filter>UT Library</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\utgraphicsutil\material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\utgraphicsutil\portable_gl.h">
-      <Filter>Header Files</Filter>
+      <Filter>UT Library</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

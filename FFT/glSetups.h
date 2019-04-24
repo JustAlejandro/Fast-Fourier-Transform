@@ -11,4 +11,6 @@ void frameBufferSetup(GLuint& FrameBuffer, GLuint& mainRenderTex, GLuint& depthr
 
 void glCleanup();
 
+void toTextureSetup(int width, int height, GLuint& FrameBuffer);
+
 #endif

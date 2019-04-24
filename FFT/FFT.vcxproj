@@ -71,11 +71,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\include\GL;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\include;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\libjpeg.9.2.0.1\build\native\lib\v140\x64\Release\static\cdecl;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\lib\x64;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\lib;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\lib\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\lib\Win32;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\libjpeg.9.2.0.1\build\native\lib\v140\x64\Release\static\cdecl;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\lib;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\include\GL;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\include;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\libjpeg.9.2.0.1\build\native\lib\v140\x64\Release\static\cdecl;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\lib\x64;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\lib;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\lib\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\lib\Win32;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\libjpeg.9.2.0.1\build\native\lib\v140\x64\Release\static\cdecl;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\Discord\lib;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -99,7 +99,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>discord-rpc.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;jpeg.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>discord-rpc.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;jpeg.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\lib\x64;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\libjpeg.9.2.0.1\build\native\lib\v140\x64\Release\static\cdecl;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -132,7 +133,8 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>discord-rpc.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;jpeg.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>discord-rpc.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;jpeg.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\nupengl.core.0.1.0.1\build\native\lib\x64;C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\packages\libjpeg.9.2.0.1\build\native\lib\v140\x64\Release\static\cdecl;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
