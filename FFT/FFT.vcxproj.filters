@@ -21,16 +21,70 @@
     <ClCompile Include="discord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="render_pass.cc">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shader_uniform.cc">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glSetups.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\utgraphicsutil\debuggl.cc">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\utgraphicsutil\jpegio.cc">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="screen.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="screen.vert">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FFT.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render_pass.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shader_uniform.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glSetups.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLInit.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\utgraphicsutil\debuggl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\utgraphicsutil\image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\utgraphicsutil\jpegio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\utgraphicsutil\material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\utgraphicsutil\portable_gl.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
