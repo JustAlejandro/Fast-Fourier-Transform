@@ -8,6 +8,8 @@
 #include "SDLInit.h"
 #include "Screen.h"
 #include "glSetups.h"
+#include "Player.h"
+#include "World.h"
 
 int main(int argc, char* argv[]) {
 	discordInit();
@@ -20,9 +22,15 @@ int main(int argc, char* argv[]) {
 	frameBufferSetup(FrameBuffer, mainRenderTex, depthrenderbuffer, DrawBuffers, windowWidth, windowHeight);
 
 	Screen screen;
+	Player player;
+	//Class that'll hold all our objects
+	World world;
+	vec3 light = vec3(0.0, 10.0, 0.0);
 
-	while (!SDL_QuitRequested()) {
+	while (!SDL_QuitRequested() && !player.quit) {
+		player.update();
 		toTextureSetup(windowWidth, windowHeight, FrameBuffer);
+
 		screen.toScreen(mainRenderTex, windowWidth, windowHeight);
 
 		SDL_GL_SwapWindow(window);

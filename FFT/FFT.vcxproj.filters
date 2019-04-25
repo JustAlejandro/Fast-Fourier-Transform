@@ -13,15 +13,18 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{be8585c5-1bd3-4086-8968-7676495db067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Screen">
+      <UniqueIdentifier>{1c99af08-a505-40dd-af74-3fae634c97ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Floor">
+      <UniqueIdentifier>{4752e2b7-2a1f-47ee-8358-b30c18865257}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="discord.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Screen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="render_pass.cc">
@@ -39,6 +42,27 @@
     <ClCompile Include="..\lib\utgraphicsutil\jpegio.cc">
       <Filter>UT Library</Filter>
     </ClCompile>
+    <ClCompile Include="discord.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLInit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FFT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source Files\Objects\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>Source Files\Objects\Floor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll">
@@ -46,17 +70,14 @@
     </None>
     <None Include="packages.config" />
     <None Include="screen.frag">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Objects\Screen</Filter>
     </None>
     <None Include="screen.vert">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Objects\Screen</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FFT.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Screen.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="render_pass.h">
@@ -85,6 +106,21 @@
     </ClInclude>
     <ClInclude Include="..\lib\utgraphicsutil\material.h">
       <Filter>UT Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Source Files\Objects\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
+      <Filter>Source Files\Objects\Floor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

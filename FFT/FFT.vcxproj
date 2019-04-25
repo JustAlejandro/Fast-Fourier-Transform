@@ -141,11 +141,16 @@
     <ClCompile Include="..\lib\utgraphicsutil\debuggl.cc" />
     <ClCompile Include="..\lib\utgraphicsutil\jpegio.cc" />
     <ClCompile Include="discord.cpp" />
+    <ClCompile Include="FFT.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="glSetups.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="render_pass.cc" />
     <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="SDLInit.cpp" />
     <ClCompile Include="shader_uniform.cc" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -160,11 +165,15 @@
     <ClInclude Include="..\lib\utgraphicsutil\material.h" />
     <ClInclude Include="..\lib\utgraphicsutil\portable_gl.h" />
     <ClInclude Include="FFT.h" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="glSetups.h" />
+    <ClInclude Include="Objects.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="render_pass.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="SDLInit.h" />
     <ClInclude Include="shader_uniform.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
