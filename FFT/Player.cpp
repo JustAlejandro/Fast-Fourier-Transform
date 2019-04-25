@@ -57,7 +57,9 @@ void Player::takeInput() {
 			}
 			break;
 		case SDL_MOUSEMOTION:
-			std::cout << "X: " << event.motion.xrel << " Y: " << event.motion.yrel << std::endl;
+			axis.x += event.motion.xrel;
+			axis.y += -event.motion.yrel;
+			break;
 		default:
 			break;
 		}
