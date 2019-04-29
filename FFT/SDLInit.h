@@ -9,6 +9,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <glm/gtx/string_cast.hpp>
+#include <glm/gtx/io.hpp>
 
 #define GL3_PROTOTYPES 1
 
@@ -18,6 +20,10 @@ extern std::vector<float> buckets;
 extern float resScale;
 extern float renderScale;
 extern SDL_Window* window;
+extern glm::mat4 orient;
+extern float audioDist;
+extern glm::vec3 playPosition;
+extern glm::vec3 soundPos;
 
 bool initSDL();
 bool setOpenGLAttributes();

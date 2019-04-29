@@ -18,6 +18,12 @@ std::vector<float> bucketDirty(7, 0.0);
 std::vector<float> buckets(7,0.0);
 std::deque<std::vector<float>> bucketHistory;
 
+//Orientation and vector relative to audio source
+float audioDist = 0.0f;
+glm::mat4 orient(1.0);
+glm::vec3 playPosition;
+glm::vec3 soundPos;
+
 //Main SDL window
 SDL_Window* window;
 Mix_Chunk* sound;
@@ -144,7 +150,11 @@ void passThrough(int chan, void* stream, int len, void* udata) {
 	float value = 1.0f;
 	short* p = (short*)stream;
 	int length = len / 2;
-
+	//Positional Audio
+	audioDist = glm::distance(soundPos, playPosition);
+	glm::vec3 toSound = glm::normalize(soundPos - playPosition);
+	float LDrop = (glm::dot(glm::vec3(glm::vec4(1.0,0.0,0.0,0.0) * orient), toSound) + 1.0) / 2.0;
+	float RDrop = (glm::dot(glm::vec3(glm::vec4(-1.0, 0.0, 0.0, 0.0) * orient), toSound) + 1.0) / 2.0;
 	//Reset the buckets on every run
 	for (int i = 0; i < 7; i++) {
 		bucketDirty[i] = 0.0;
@@ -153,8 +163,8 @@ void passThrough(int chan, void* stream, int len, void* udata) {
 	/* Iterate over p 2 by 2 */
 	for (int i = 0; i < length / 2; i++) {
 		FFTdata[i] = (std::complex<double>)(short)(p[i * 2] * value);
-		p[i * 2] = (short)(p[i * 2] * value);
-		p[i * 2 + 1] = (short)(p[i * 2 + 1] * value);
+		p[i * 2] = (short)(p[i * 2] * value) * (1.0 / (1.0 + 0.002 * audioDist * audioDist) * LDrop);
+		p[i * 2 + 1] = (short)(p[i * 2 + 1] * value) * (1.0 / (1.0 + 0.002 * audioDist * audioDist) * RDrop);
 	}
 
 	CArray data(FFTdata, 2048);

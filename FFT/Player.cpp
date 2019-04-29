@@ -8,11 +8,13 @@ void Player::update() {
 	glm::vec3 forward = glm::vec3(0, 0, -1);
 
 	mat4 rot = rotate(glm::mat4(1.0), axis.x, up) * rotate(mat4(1.0), axis.y, right);
+	orient = rot;
 	forward = normalize(rot * vec4(forward, 0.0));
 	up = normalize(rot * vec4(up, 0.0));
 	right = normalize(rot * vec4(right, 0.0));
 
 	playerPos += right * (float)playerX + forward * (float)playerY;
+	playPosition = playerPos;
 
 	view = lookAt(playerPos, playerPos + forward, up);
 }

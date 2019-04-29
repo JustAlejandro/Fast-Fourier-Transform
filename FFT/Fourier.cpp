@@ -43,6 +43,7 @@ Fourier::Fourier(Player* p, vec4* light) {
 	for (int i = -3; i <= 3; i++) {
 		locations.push_back(vec3((float)i, 0.0, -20.0));
 	}
+	soundPos = vec3(0.0, 0.0, -20.0);
 
 	player = p;
 	this->light = light;
