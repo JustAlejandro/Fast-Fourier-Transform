@@ -8,12 +8,13 @@
 #include <debuggl.h>
 #include <string>
 #include <iostream>
+#include <vector>
 
 #define GL3_PROTOTYPES 1
 
 extern int windowWidth;
 extern int windowHeight;
-extern double buckets[7];
+extern std::vector<float> buckets;
 extern float resScale;
 extern float renderScale;
 extern SDL_Window* window;

@@ -1,5 +1,46 @@
 #include "Floor.h"
+#include "Player.h"
+
+const float kFloorXMin = -1000.0;
+const float kFloorXMax = 1000.0;
+const float kFloorY = 0.0;
+const float kFloorZMax = 1000.0;
+const float kFloorZMin = -1000.0;
 
 void Floor::toScreen(int width, int height) {
-	
+	render->setup();
+	glViewport(0, 0, width, height);
+	CHECK_GL_ERROR(glDrawElements(GL_TRIANGLES,
+		faces.size() * 3,
+		GL_UNSIGNED_INT, 0));
+}
+
+Floor::Floor(Player* p, vec4* light) {
+	verts.push_back(glm::vec4(kFloorXMin, kFloorY, kFloorZMax, 1.0f));
+	verts.push_back(glm::vec4(kFloorXMax, kFloorY, kFloorZMax, 1.0f));
+	verts.push_back(glm::vec4(kFloorXMax, kFloorY, kFloorZMin, 1.0f));
+	verts.push_back(glm::vec4(kFloorXMin, kFloorY, kFloorZMin, 1.0f));
+	faces.push_back(glm::uvec3(0, 1, 2));
+	faces.push_back(glm::uvec3(2, 3, 0));
+
+	input = new RenderDataInput();
+	input->assignIndex(faces.data(), faces.size(), 3);
+	input->assign(0, "vertex_position", verts.data(), verts.size(), 4, GL_FLOAT);
+
+	player = p;
+	this->light = light;
+	std::function <mat4()> proj_data = [this]() { return player->projection; };
+	std::function <mat4()> view_data = [this]() { return player->view; };
+	std::function <vec4()> light_data = [this]() { return *this->light; };
+	std::function <vec3()> pos_data = [this]() { return player->playerPos; };
+
+	auto proj = make_uniform("projection", proj_data);
+	auto view = make_uniform("view", view_data);
+	auto l = make_uniform("light_position", light_data);
+	auto p_pos = make_uniform("camera_position", pos_data);
+
+	render = new RenderPass(-1, *input,
+		{ floor_vert, floor_geom, floor_frag },
+		{ proj, view, l, p_pos },
+		{ "fragment_color" });
 }

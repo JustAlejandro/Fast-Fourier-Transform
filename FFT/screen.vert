@@ -1,4 +1,4 @@
-R"zzz(#version 330 core
+R"zzz(#version 410 core
 in vec4 vertex_position;
 in vec2 tex_coord_in;
 out vec2 tex_coord;

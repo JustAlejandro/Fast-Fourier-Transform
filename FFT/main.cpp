@@ -24,18 +24,18 @@ int main(int argc, char* argv[]) {
 	Screen screen;
 	Player player;
 	//Class that'll hold all our objects
-	World world;
-	vec3 light = vec3(0.0, 10.0, 0.0);
+	vec4 light = vec4(0.0, 10.0, 0.0, 1.0);
+	World world = World(&player, &light);
 
 	while (!SDL_QuitRequested() && !player.quit) {
 		player.update();
 		toTextureSetup(windowWidth, windowHeight, FrameBuffer);
+		world.toScreen(windowWidth * renderScale, windowWidth * renderScale);
 
 		screen.toScreen(mainRenderTex, windowWidth, windowHeight);
 
 		SDL_GL_SwapWindow(window);
 	}
-
 	cleanUp();
 	Discord_Shutdown();
 	return 0;

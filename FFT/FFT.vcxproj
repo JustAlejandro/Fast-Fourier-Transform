@@ -143,6 +143,7 @@
     <ClCompile Include="discord.cpp" />
     <ClCompile Include="FFT.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="Fourier.cpp" />
     <ClCompile Include="glSetups.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -153,6 +154,12 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="floor.frag" />
+    <None Include="floor.geom" />
+    <None Include="floor.vert" />
+    <None Include="fourier.frag" />
+    <None Include="fourier.geom" />
+    <None Include="fourier.vert" />
     <None Include="packages.config" />
     <None Include="screen.frag" />
     <None Include="screen.vert" />
@@ -166,6 +173,7 @@
     <ClInclude Include="..\lib\utgraphicsutil\portable_gl.h" />
     <ClInclude Include="FFT.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="Fourier.h" />
     <ClInclude Include="glSetups.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="Player.h" />

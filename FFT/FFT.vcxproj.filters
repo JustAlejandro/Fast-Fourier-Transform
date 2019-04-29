@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Objects\Floor">
       <UniqueIdentifier>{4752e2b7-2a1f-47ee-8358-b30c18865257}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Fourier">
+      <UniqueIdentifier>{5feaa7e2-859f-460f-922f-683878a6a52a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,9 +54,6 @@
     <ClCompile Include="SDLInit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FFT.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="World.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
@@ -62,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="Floor.cpp">
       <Filter>Source Files\Objects\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="FFT.cpp">
+      <Filter>Source Files\Objects\Fourier</Filter>
+    </ClCompile>
+    <ClCompile Include="Fourier.cpp">
+      <Filter>Source Files\Objects\Fourier</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,11 +81,26 @@
     <None Include="screen.vert">
       <Filter>Source Files\Objects\Screen</Filter>
     </None>
+    <None Include="floor.vert">
+      <Filter>Source Files\Objects\Floor</Filter>
+    </None>
+    <None Include="floor.geom">
+      <Filter>Source Files\Objects\Floor</Filter>
+    </None>
+    <None Include="floor.frag">
+      <Filter>Source Files\Objects\Floor</Filter>
+    </None>
+    <None Include="fourier.frag">
+      <Filter>Source Files\Objects\Fourier</Filter>
+    </None>
+    <None Include="fourier.geom">
+      <Filter>Source Files\Objects\Fourier</Filter>
+    </None>
+    <None Include="fourier.vert">
+      <Filter>Source Files\Objects\Fourier</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FFT.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="render_pass.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
@@ -121,6 +142,12 @@
     </ClInclude>
     <ClInclude Include="Floor.h">
       <Filter>Source Files\Objects\Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="FFT.h">
+      <Filter>Source Files\Objects\Fourier</Filter>
+    </ClInclude>
+    <ClInclude Include="Fourier.h">
+      <Filter>Source Files\Objects\Fourier</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

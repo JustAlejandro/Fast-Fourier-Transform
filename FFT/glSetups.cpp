@@ -3,7 +3,7 @@
 void frameBufferSetup(GLuint & FrameBuffer, GLuint & mainRenderTex, GLuint & depthrenderbuffer, GLenum* DrawBuffers, int width, int height)
 {
 	//FBO setup
-	glGenFramebuffers(1, &FrameBuffer);
+	CHECK_GL_ERROR(glGenFramebuffers(1, &FrameBuffer));
 	glBindFramebuffer(GL_FRAMEBUFFER, FrameBuffer);
 
 	//Setup tex to render to

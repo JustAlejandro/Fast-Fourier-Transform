@@ -7,7 +7,7 @@
 // This will handle our inputs as well as the Player's view and camera stuff.
 using namespace glm;
 struct Player {
-	float FOV = 90.0f;
+	float FOV = 45.0f;
 	float nearP = 1.0f;
 	float farP = 400.0f;
 	bool quit = false;
@@ -24,7 +24,7 @@ struct Player {
 	// Handles direction of player movement
 	int playerX = 0;
 	int playerY = 0;
-	vec3 playerPos = vec3(0.0,0.0,0.0);
+	vec3 playerPos = vec3(0.0,2.0,0.0);
 private:
 	void takeInput();
 };

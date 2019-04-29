@@ -5,9 +5,16 @@ void Player::update() {
 	takeInput();
 	glm::vec3 up = glm::vec3(0, 1, 0);
 	glm::vec3 right = glm::vec3(1, 0, 0);
-	camera = rotate(glm::mat4(), axis.x, up);
-	camera = rotate(camera, axis.y, right);
-	view = inverse(camera);
+	glm::vec3 forward = glm::vec3(0, 0, -1);
+
+	mat4 rot = rotate(glm::mat4(1.0), axis.x, up) * rotate(mat4(1.0), axis.y, right);
+	forward = normalize(rot * vec4(forward, 0.0));
+	up = normalize(rot * vec4(up, 0.0));
+	right = normalize(rot * vec4(right, 0.0));
+
+	playerPos += right * (float)playerX + forward * (float)playerY;
+
+	view = lookAt(playerPos, playerPos + forward, up);
 }
 
 void Player::takeInput() {
@@ -27,7 +34,7 @@ void Player::takeInput() {
 				playerY = 1;
 				break;
 			case SDLK_s:
-				playerX = -1;
+				playerY = -1;
 				break;
 			case SDLK_ESCAPE:
 				quit = true;
@@ -52,13 +59,13 @@ void Player::takeInput() {
 				break;
 			case SDLK_s:
 				if (playerY < 0)
-					playerX = 0;
+					playerY = 0;
 				break;
 			}
 			break;
 		case SDL_MOUSEMOTION:
-			axis.x += event.motion.xrel;
-			axis.y += -event.motion.yrel;
+			axis.x -= event.motion.xrel * 0.005;
+			axis.y += -event.motion.yrel * 0.005;
 			break;
 		default:
 			break;

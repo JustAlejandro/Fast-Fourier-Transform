@@ -1,5 +1,6 @@
 #include "SDL.h"
 #include <glew.h>
+#include <deque>
 #include "SDL_mixer.h"
 #include "SDL_opengl.h"
 #include "FFT.h"
@@ -13,8 +14,9 @@ const char* name = "JustRender";
 //Song Path
 static const char* BOOM_BOOM = "C:\\Users\\Alejandro\\Music\\ordinary.wav";
 //Holds the music frequency values, sorted into buckets to display later
-double buckets[7];
-
+std::vector<float> bucketDirty(7, 0.0);
+std::vector<float> buckets(7,0.0);
+std::deque<std::vector<float>> bucketHistory;
 
 //Main SDL window
 SDL_Window* window;
@@ -42,6 +44,8 @@ bool initSDL() {
 		return false;
 	}
 
+	setOpenGLAttributes();
+
 	SDL_DisplayMode dis;
 	SDL_GetCurrentDisplayMode(0, &dis);
 	windowWidth = dis.w * resScale;
@@ -59,9 +63,11 @@ bool initSDL() {
 
 	//Create the opengl context
 	mainContext = SDL_GL_CreateContext(window);
+	if (mainContext == NULL) {
+		std::cout << "MAIN CONTEXT COULD NOT BE CREATED" << std::endl;
+	}
 
-	setOpenGLAttributes();
-	SDL_GL_MakeCurrent(window, mainContext);
+	CHECK_GL_ERROR(SDL_GL_MakeCurrent(window, mainContext));
 
 	//Initialize GLEW
 	glewExperimental = GL_TRUE;
@@ -70,13 +76,16 @@ bool initSDL() {
 		std::cout << "Error initializing GLEW! %s\n" << glewGetErrorString(glewError) << std::endl;
 
 	}
-
-	const GLubyte* renderer = glGetString(GL_RENDERER);  // get renderer string
-	const GLubyte* version = glGetString(GL_VERSION);    // version as a string
-	std::cout << "Renderer: " << renderer << "\n";
-	std::cout << "OpenGL version supported:" << version << std::endl;
+	//Sometimes glew just throws errors, so we'll clear them
+	glGetError();
+	//const GLubyte* renderer = glGetString(GL_RENDERER);  // get renderer string
+	//const GLubyte* version = glGetString(GL_VERSION);    // version as a string
+	//std::cout << "Renderer: " << renderer << "\n";
+	//std::cout << "OpenGL version supported:" << version << std::endl;
 	//V-sync
-	SDL_GL_SetSwapInterval(1);
+	if (SDL_GL_SetSwapInterval(1) < 0) {
+		printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+	}
 
 	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 1024);
 	sound = Mix_LoadWAV(BOOM_BOOM);
@@ -89,21 +98,18 @@ bool initSDL() {
 	Mix_RegisterEffect(MIX_CHANNEL_POST, passThrough, NULL, NULL);
 
 	// Capture and hold the mouse position
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+	CHECK_GL_ERROR(SDL_SetRelativeMouseMode(SDL_TRUE));
 
 	return true;
 }
 
 bool setOpenGLAttributes() {
 	//Set the openGL version
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-	//Double Buffering
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	return true;
 }
 
@@ -141,7 +147,7 @@ void passThrough(int chan, void* stream, int len, void* udata) {
 
 	//Reset the buckets on every run
 	for (int i = 0; i < 7; i++) {
-		buckets[i] = 0.0;
+		bucketDirty[i] = 0.0;
 	}
 
 	/* Iterate over p 2 by 2 */
@@ -163,41 +169,57 @@ void passThrough(int chan, void* stream, int len, void* udata) {
 }
 
 void normalizeBuckets() {
-	buckets[0] = buckets[0] / 100;
-	buckets[1] = buckets[1] / 150;
-	buckets[2] = buckets[2] / 250;
-	buckets[3] = buckets[3] / 200;
-	buckets[4] = buckets[4] / 200;
-	buckets[5] = buckets[5] / 500;
-	buckets[6] = buckets[6] / 600;
+	bucketDirty[0] = bucketDirty[0] / 200;
+	bucketDirty[1] = bucketDirty[1] / 150;
+	bucketDirty[2] = bucketDirty[2] / 250;
+	bucketDirty[3] = bucketDirty[3] / 200;
+	bucketDirty[4] = bucketDirty[4] / 200;
+	bucketDirty[5] = bucketDirty[5] / 500;
+	bucketDirty[6] = bucketDirty[6] / 600;
+	float max = -100.0;
+	for (int i = 0; i < 7; i++) {
+		if (bucketDirty[i] > max) max = bucketDirty[i];
+	}
+	for (int i = 0; i < 7; i++) {
+		bucketDirty[i] = (bucketDirty[i] / max * 3.0);
+	}
+	bucketHistory.push_front(bucketDirty);
+	if (bucketHistory.size() > 6) bucketHistory.resize(6);
+	for (int i = 0; i < 7; i++) {
+		float toAvg = 0.0;
+		for (int j = 0; j < bucketHistory.size(); j++) {
+			toAvg += bucketHistory[j].at(i);
+		}
+		buckets[i] = toAvg / bucketHistory.size();
+	}
 }
 
 void fixBuckets(double a, int id) {
 	if (id < 100) {
-		buckets[0] += a;
+		bucketDirty[0] += a;
 		return;
 	}
 	if (id < 250) {
-		buckets[1] += a;
+		bucketDirty[1] += a;
 		return;
 	}
 	if (id < 500) {
-		buckets[2] += a;
+		bucketDirty[2] += a;
 		return;
 	}
 	if (id < 700) {
-		buckets[3] += a;
+		bucketDirty[3] += a;
 		return;
 	}
 	if (id < 900) {
-		buckets[4] += a;
+		bucketDirty[4] += a;
 		return;
 	}
 	if (id < 1400) {
-		buckets[5] += a;
+		bucketDirty[5] += a;
 		return;
 	}
 	if (id < 2000) {
-		buckets[6] += a;
+		bucketDirty[6] += a;
 	}
 }

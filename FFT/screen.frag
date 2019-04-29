@@ -1,4 +1,4 @@
-R"zzz(#version 330 core
+R"zzz(#version 410 core
 out vec4 fragment_color;
 in vec2 tex_coord;
 uniform sampler2D sampler;

@@ -13,11 +13,6 @@ public:
 	Object() {};
 	virtual ~Object() {};
 protected:
-	std::vector<vec4> verts;
-	std::vector<vec2> uv;
-	std::vector<uvec3> faces;
-	RenderDataInput input;
-	RenderPass* render;
 };
 
 #endif // !OBJECTS_H
