@@ -9,10 +9,6 @@ const float kFloorZMin = -1000.0;
 
 void Floor::toScreen(int width, int height) {
 	render->setup();
-	//Setup the stencil buffer for SSR
-	glStencilFunc(GL_ALWAYS, 1, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-	glStencilMask(0xFF);
 
 	glViewport(0, 0, width, height);
 	CHECK_GL_ERROR(glDrawElements(GL_TRIANGLES,

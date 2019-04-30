@@ -1,6 +1,6 @@
 #include "Screen.h"
 
-Screen::Screen()
+Screen::Screen(GLuint* depth)
 {
 	//Setup verts
 	quad_vert.push_back(glm::vec4(-1.0f, -1.0f, 0.5, 1.0f));
@@ -29,17 +29,23 @@ Screen::Screen()
 		{}, 
 		//Outputs
 		{ "fragment_color" });
+	render->setup();
+	tex_loc = glGetUniformLocation(render->sp_, "sampler");
+	glUniform1i(tex_loc, 0);
+	depSten = glGetUniformLocation(render->sp_, "depSten");
+	CHECK_GL_ERROR(glUniform1i(depSten, 1));
 }
 
-void Screen::toScreen(GLuint& mainRenderTex, GLuint& depthStencil, int& width, int& height)
+void Screen::toScreen(GLuint& mainRenderTex, GLuint& depth, int& width, int& height)
 {
-	glDisable(GL_STENCIL_TEST);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, width, height);
 	glDepthFunc(GL_ALWAYS);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mainRenderTex);
 	render->setup();
+	glActiveTexture(GL_TEXTURE0 + 0);
+	glBindTexture(GL_TEXTURE_2D, mainRenderTex);
+	glActiveTexture(GL_TEXTURE0 + 1);
+	glBindTexture(GL_TEXTURE_2D, depth);
 	CHECK_GL_ERROR(glDrawElements(GL_TRIANGLES, quad_faces.size() * 3, GL_UNSIGNED_INT, 0));
 }

@@ -17,11 +17,11 @@ int main(int argc, char* argv[]) {
 	initSDL();
 
 	//FrameBuffer setup
-	GLuint FrameBuffer, mainRenderTex, depthrenderbuffer;
+	GLuint FrameBuffer, mainRenderTex, depth;
 	GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-	frameBufferSetup(FrameBuffer, mainRenderTex, depthrenderbuffer, DrawBuffers, windowWidth, windowHeight);
+	frameBufferSetup(FrameBuffer, mainRenderTex, depth, DrawBuffers, windowWidth, windowHeight);
 
-	Screen screen;
+	Screen screen = Screen(&depth);
 	Player player;
 	//Class that'll hold all our objects
 	vec4 light = vec4(0.0, 10.0, 0.0, 1.0);
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 		toTextureSetup(windowWidth, windowHeight, FrameBuffer);
 		world.toScreen(windowWidth * renderScale, windowWidth * renderScale);
 
-		screen.toScreen(mainRenderTex, depthrenderbuffer, windowWidth, windowHeight);
+		screen.toScreen(mainRenderTex, depth, windowWidth, windowHeight);
 
 		SDL_GL_SwapWindow(window);
 	}

@@ -106,6 +106,7 @@ public:
 	 * corresponding uniforms for Phong shading.
 	 */
 	bool renderWithMaterial(int i); // return false if material id is invalid
+	unsigned sp_ = 0;
 private:
 	void initMaterialUniform();
 	void createMaterialTexture();
@@ -119,7 +120,6 @@ private:
 	std::vector<unsigned> gltextures_, matexids_;
 	unsigned sampler2d_;
 	unsigned vs_ = 0, gs_ = 0, fs_ = 0;
-	unsigned sp_ = 0;
 	
 	static unsigned compileShader(const char*, int type);
 	static std::map<const char*, unsigned> shader_cache_;

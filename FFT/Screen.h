@@ -10,8 +10,8 @@ using namespace glm;
 struct Screen
 {
 public:
-	Screen();
-	void toScreen(GLuint& mainRenderTex, GLuint& depthStencil, int& width, int& height);
+	Screen(GLuint* depthStencil);
+	void toScreen(GLuint& mainRenderTex, GLuint& depth, int& width, int& height);
 
 	std::vector<vec4> quad_vert;
 	std::vector<vec2> quad_uv;
@@ -19,6 +19,8 @@ public:
 private:
 	RenderDataInput input;
 	RenderPass* render;
+	GLint tex_loc;
+	GLint depSten;
 	const char* screen_frag =
 #include "screen.frag"
 		; 
