@@ -152,9 +152,11 @@ void passThrough(int chan, void* stream, int len, void* udata) {
 	int length = len / 2;
 	//Positional Audio
 	audioDist = glm::distance(soundPos, playPosition);
-	glm::vec3 toSound = glm::normalize(soundPos - playPosition);
-	float LDrop = (glm::dot(glm::vec3(glm::vec4(1.0,0.0,0.0,0.0) * orient), toSound) + 1.0) / 2.0;
-	float RDrop = (glm::dot(glm::vec3(glm::vec4(-1.0, 0.0, 0.0, 0.0) * orient), toSound) + 1.0) / 2.0;
+
+	glm::vec3 toSound = glm::normalize(playPosition - soundPos);
+	float LDrop = (glm::dot(glm::vec3(orient * glm::vec4(1.0,0.0,0.0,0.0)), toSound) + 1.0) / 2.0;
+	float RDrop = (glm::dot(glm::vec3(orient * glm::vec4(-1.0, 0.0, 0.0, 0.0)), toSound) + 1.0) / 2.0;
+
 	//Reset the buckets on every run
 	for (int i = 0; i < 7; i++) {
 		bucketDirty[i] = 0.0;

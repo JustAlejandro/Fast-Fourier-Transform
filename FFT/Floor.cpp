@@ -9,6 +9,11 @@ const float kFloorZMin = -1000.0;
 
 void Floor::toScreen(int width, int height) {
 	render->setup();
+	//Setup the stencil buffer for SSR
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	glStencilMask(0xFF);
+
 	glViewport(0, 0, width, height);
 	CHECK_GL_ERROR(glDrawElements(GL_TRIANGLES,
 		faces.size() * 3,
@@ -42,5 +47,5 @@ Floor::Floor(Player* p, vec4* light) {
 	render = new RenderPass(-1, *input,
 		{ floor_vert, floor_geom, floor_frag },
 		{ proj, view, l, p_pos },
-		{ "fragment_color" });
+		{ "fragment_color", "world_C" });
 }

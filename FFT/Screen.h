@@ -11,7 +11,7 @@ struct Screen
 {
 public:
 	Screen();
-	void toScreen(GLuint& mainRenderTex, int& width, int& height);
+	void toScreen(GLuint& mainRenderTex, GLuint& depthStencil, int& width, int& height);
 
 	std::vector<vec4> quad_vert;
 	std::vector<vec2> quad_uv;

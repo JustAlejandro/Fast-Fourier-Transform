@@ -13,17 +13,17 @@ void frameBufferSetup(GLuint & FrameBuffer, GLuint & mainRenderTex, GLuint & dep
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-	//DepthBuffer Setup
+	//DepthBuffer/StencilBuffer Setup
 	glGenRenderbuffers(1, &depthrenderbuffer);
 	glBindRenderbuffer(GL_RENDERBUFFER, depthrenderbuffer);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
 
 	CHECK_GL_ERROR(glBindTexture(GL_TEXTURE_2D, mainRenderTex));
 	CHECK_GL_ERROR(glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, mainRenderTex, 0));
-	
+
 	//Draw Buffer bind
-	glDrawBuffers(1, DrawBuffers);
+	CHECK_GL_ERROR(glDrawBuffers(1, DrawBuffers));
 }
 
 void glCleanup()
@@ -42,7 +42,10 @@ void toTextureSetup(int width, int height, GLuint& FrameBuffer)
 	glBindFramebuffer(GL_FRAMEBUFFER, FrameBuffer);
 	glViewport(0, 0, width, height);
 	glEnable(GL_DEPTH_TEST);
+	CHECK_GL_ERROR(glEnable(GL_STENCIL_TEST));
 	glClearColor(0.0, 0.5, 1.0, 1.0);
 	glDepthFunc(GL_LESS);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//Re-enable stencil buffer editing to clear it
+	glStencilMask(0xFF);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }

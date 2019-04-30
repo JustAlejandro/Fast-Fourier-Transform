@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 		toTextureSetup(windowWidth, windowHeight, FrameBuffer);
 		world.toScreen(windowWidth * renderScale, windowWidth * renderScale);
 
-		screen.toScreen(mainRenderTex, windowWidth, windowHeight);
+		screen.toScreen(mainRenderTex, depthrenderbuffer, windowWidth, windowHeight);
 
 		SDL_GL_SwapWindow(window);
 	}

@@ -31,12 +31,14 @@ Screen::Screen()
 		{ "fragment_color" });
 }
 
-void Screen::toScreen(GLuint& mainRenderTex, int& width, int& height)
+void Screen::toScreen(GLuint& mainRenderTex, GLuint& depthStencil, int& width, int& height)
 {
+	glDisable(GL_STENCIL_TEST);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, width, height);
 	glDepthFunc(GL_ALWAYS);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, mainRenderTex);
 	render->setup();
 	CHECK_GL_ERROR(glDrawElements(GL_TRIANGLES, quad_faces.size() * 3, GL_UNSIGNED_INT, 0));
