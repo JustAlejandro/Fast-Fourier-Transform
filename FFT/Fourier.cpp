@@ -3,6 +3,7 @@
 
 void Fourier::toScreen(int width, int height) {
 	render->setup();
+	glStencilFunc(GL_ALWAYS, 0, 0xFF);
 
 	glViewport(0, 0, width, height);
 	CHECK_GL_ERROR(glDrawElementsInstanced(GL_TRIANGLES,

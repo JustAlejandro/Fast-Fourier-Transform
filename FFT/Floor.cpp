@@ -9,6 +9,8 @@ const float kFloorZMin = -1000.0;
 
 void Floor::toScreen(int width, int height) {
 	render->setup();
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
 
 	glViewport(0, 0, width, height);
 	CHECK_GL_ERROR(glDrawElements(GL_TRIANGLES,

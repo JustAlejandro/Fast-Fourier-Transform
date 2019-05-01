@@ -15,12 +15,12 @@ void frameBufferSetup(GLuint & FrameBuffer, GLuint & mainRenderTex, GLuint& dept
 	//Depth Tex
 	glGenTextures(1, &depth);
 	glBindTexture(GL_TEXTURE_2D, depth);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 	CHECK_GL_ERROR(glBindTexture(GL_TEXTURE_2D, mainRenderTex));
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, depth, 0);
 	CHECK_GL_ERROR(glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, mainRenderTex, 0));
 
 	//Draw Buffer bind
@@ -42,8 +42,9 @@ void toTextureSetup(int width, int height, GLuint& FrameBuffer)
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, FrameBuffer);
 	glViewport(0, 0, width, height);
+	glEnable(GL_STENCIL_TEST);
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.0, 0.5, 1.0, 1.0);
 	glDepthFunc(GL_LESS);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
