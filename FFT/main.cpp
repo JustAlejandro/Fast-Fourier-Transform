@@ -10,6 +10,7 @@
 #include "glSetups.h"
 #include "Player.h"
 #include "World.h"
+#include "SSR.h"
 
 int main(int argc, char* argv[]) {
 	discordInit();
@@ -22,6 +23,7 @@ int main(int argc, char* argv[]) {
 	frameBufferSetup(FrameBuffer, mainRenderTex, depth, DrawBuffers, windowWidth, windowHeight);
 
 	Screen screen = Screen(&depth);
+	SSR ssr;
 	Player player;
 	//Class that'll hold all our objects
 	vec4 light = vec4(0.0, 10.0, 0.0, 1.0);
@@ -31,8 +33,9 @@ int main(int argc, char* argv[]) {
 		player.update();
 		toTextureSetup(windowWidth, windowHeight, FrameBuffer);
 		world.toScreen(windowWidth * renderScale, windowWidth * renderScale);
+		ssr.toScreen(mainRenderTex, depth);
 
-		screen.toScreen(mainRenderTex, depth, windowWidth, windowHeight);
+		screen.toScreen(ssr.screen, depth, windowWidth, windowHeight);
 
 		SDL_GL_SwapWindow(window);
 	}

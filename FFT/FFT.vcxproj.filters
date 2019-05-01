@@ -16,14 +16,20 @@
     <Filter Include="Source Files\Objects">
       <UniqueIdentifier>{be8585c5-1bd3-4086-8968-7676495db067}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Objects\Screen">
-      <UniqueIdentifier>{1c99af08-a505-40dd-af74-3fae634c97ca}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Objects\Floor">
       <UniqueIdentifier>{4752e2b7-2a1f-47ee-8358-b30c18865257}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Objects\Fourier">
       <UniqueIdentifier>{5feaa7e2-859f-460f-922f-683878a6a52a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Passes">
+      <UniqueIdentifier>{2ac7ea10-6f1e-4b5b-ba34-7385d17578ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Passes\Screen">
+      <UniqueIdentifier>{1c99af08-a505-40dd-af74-3fae634c97ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Passes\SSR">
+      <UniqueIdentifier>{9c5b9974-1505-4459-9ee8-4c90c940bd3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,7 +64,7 @@
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Screen.cpp">
-      <Filter>Source Files\Objects\Screen</Filter>
+      <Filter>Source Files\Passes\Screen</Filter>
     </ClCompile>
     <ClCompile Include="Floor.cpp">
       <Filter>Source Files\Objects\Floor</Filter>
@@ -69,6 +75,9 @@
     <ClCompile Include="Fourier.cpp">
       <Filter>Source Files\Objects\Fourier</Filter>
     </ClCompile>
+    <ClCompile Include="SSR.cpp">
+      <Filter>Source Files\Passes\SSR</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll">
@@ -76,10 +85,10 @@
     </None>
     <None Include="packages.config" />
     <None Include="screen.frag">
-      <Filter>Source Files\Objects\Screen</Filter>
+      <Filter>Source Files\Passes\Screen</Filter>
     </None>
     <None Include="screen.vert">
-      <Filter>Source Files\Objects\Screen</Filter>
+      <Filter>Source Files\Passes\Screen</Filter>
     </None>
     <None Include="floor.vert">
       <Filter>Source Files\Objects\Floor</Filter>
@@ -138,7 +147,7 @@
       <Filter>Source Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Screen.h">
-      <Filter>Source Files\Objects\Screen</Filter>
+      <Filter>Source Files\Passes\Screen</Filter>
     </ClInclude>
     <ClInclude Include="Floor.h">
       <Filter>Source Files\Objects\Floor</Filter>
@@ -148,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="Fourier.h">
       <Filter>Source Files\Objects\Fourier</Filter>
+    </ClInclude>
+    <ClInclude Include="SSR.h">
+      <Filter>Source Files\Passes\SSR</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

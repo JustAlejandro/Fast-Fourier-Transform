@@ -151,6 +151,7 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SDLInit.cpp" />
     <ClCompile Include="shader_uniform.cc" />
+    <ClCompile Include="SSR.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +182,7 @@
     <ClInclude Include="Screen.h" />
     <ClInclude Include="SDLInit.h" />
     <ClInclude Include="shader_uniform.h" />
+    <ClInclude Include="SSR.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
