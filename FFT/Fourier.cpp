@@ -66,5 +66,5 @@ Fourier::Fourier(Player* p, vec4* light) {
 	render = new RenderPass(-1, *input,
 		{ fourier_vert, fourier_geom, fourier_frag },
 		{ proj, view, l, p_pos, bucket, loc_uni },
-		{ "fragment_color" });
+		{ "fragment_color", "ss_Normal" });
 }

@@ -12,7 +12,7 @@
 //Program name
 const char* name = "JustRender";
 //Song Path
-static const char* BOOM_BOOM = "C:\\Users\\Alejandro\\Music\\ordinary.wav";
+static const char* BOOM_BOOM = "C:\\Users\\21aro\\Music\\ordinary.wav";
 //Holds the music frequency values, sorted into buckets to display later
 std::vector<float> bucketDirty(7, 0.0);
 std::vector<float> buckets(7,0.0);

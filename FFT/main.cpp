@@ -18,9 +18,10 @@ int main(int argc, char* argv[]) {
 	initSDL();
 
 	//FrameBuffer setup
-	GLuint FrameBuffer, mainRenderTex, depth;
-	GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-	frameBufferSetup(FrameBuffer, mainRenderTex, depth, DrawBuffers, windowWidth, windowHeight);
+	GLuint FrameBuffer, depth;
+	GLuint mainRenderTex[2] = { 1,1 };
+	GLenum DrawBuffers[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+	frameBufferSetup(FrameBuffer, mainRenderTex, depth, DrawBuffers, windowWidth, windowHeight, 2);
 
 	Screen screen = Screen(&depth);
 	SSR ssr;
@@ -35,7 +36,7 @@ int main(int argc, char* argv[]) {
 		world.toScreen(windowWidth * renderScale, windowWidth * renderScale);
 		ssr.toScreen(mainRenderTex, depth);
 
-		screen.toScreen(ssr.screen, depth, windowWidth, windowHeight);
+		screen.toScreen(ssr.screen[0], depth, windowWidth, windowHeight);
 
 		SDL_GL_SwapWindow(window);
 	}

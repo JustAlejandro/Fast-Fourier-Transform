@@ -39,14 +39,14 @@ SSR::SSR() {
 	frameBufferSetup(framebuffer, screen, depth, DrawBuffers, windowWidth, windowHeight);
 }
 
-void SSR::toScreen(GLuint& mainRenderTex, GLuint& depth) {
+void SSR::toScreen(GLuint* mainRenderTex, GLuint& depth) {
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 	glViewport(0, 0, windowWidth * renderScale, windowHeight * renderScale);
 	glDisable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	render->setup();
 	glActiveTexture(GL_TEXTURE0 + 0);
-	glBindTexture(GL_TEXTURE_2D, mainRenderTex);
+	glBindTexture(GL_TEXTURE_2D, mainRenderTex[0]);
 	glActiveTexture(GL_TEXTURE0 + 1);
 	glBindTexture(GL_TEXTURE_2D, depth);
 	CHECK_GL_ERROR(glDrawElements(GL_TRIANGLES, quad_faces.size() * 3, GL_UNSIGNED_INT, 0));

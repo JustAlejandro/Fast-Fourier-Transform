@@ -7,7 +7,7 @@
 #include "render_pass.h"
 /* This file is used to keep a lot of the bloat out of our main render loop
 */
-void frameBufferSetup(GLuint& FrameBuffer, GLuint& mainRenderTex, GLuint& depth, GLenum* DrawBuffers, int width, int height);
+void frameBufferSetup(GLuint& FrameBuffer, GLuint* mainRenderTex, GLuint& depth, GLenum* DrawBuffers, int width, int height, int buffers = 1);
 
 void glCleanup();
 

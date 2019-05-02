@@ -10,13 +10,13 @@ using namespace glm;
 struct SSR {
 public:
 	SSR();
-	void toScreen(GLuint& mainRenderTex, GLuint& depth);
+	void toScreen(GLuint* mainRenderTex, GLuint& depth);
 
 	std::vector<vec4> quad_vert;
 	std::vector<vec2> quad_uv;
 	std::vector<uvec3> quad_faces;
 
-	GLuint screen;
+	GLuint screen[1];
 private:
 	RenderDataInput input;
 	RenderPass* render;
