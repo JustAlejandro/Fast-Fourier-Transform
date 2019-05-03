@@ -19,9 +19,9 @@ int main(int argc, char* argv[]) {
 
 	//FrameBuffer setup
 	GLuint FrameBuffer, depth;
-	GLuint mainRenderTex[2] = { 1,1 };
-	GLenum DrawBuffers[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
-	frameBufferSetup(FrameBuffer, mainRenderTex, depth, DrawBuffers, windowWidth, windowHeight, 2);
+	GLuint mainRenderTex[3] = { 1,1,1 };
+	GLenum DrawBuffers[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
+	frameBufferSetup(FrameBuffer, mainRenderTex, depth, DrawBuffers, windowWidth, windowHeight, 3);
 
 	Screen screen = Screen(&depth);
 	SSR ssr;

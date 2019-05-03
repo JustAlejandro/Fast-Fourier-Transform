@@ -10,7 +10,8 @@ void frameBufferSetup(GLuint & FrameBuffer, GLuint* mainRenderTex, GLuint& depth
 	//Setup tex to render to (Supporting multiple channels)
 	for (int i = 0; i < buffers; i++) {
 		CHECK_GL_ERROR(glBindTexture(GL_TEXTURE_2D, mainRenderTex[i]));
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F_ARB, width, height, 0, GL_RGBA, GL_FLOAT, 0);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	}
@@ -34,10 +35,10 @@ void frameBufferSetup(GLuint & FrameBuffer, GLuint* mainRenderTex, GLuint& depth
 			glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, mainRenderTex[1], 0);
 			break;
 		case 2:
-			glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, mainRenderTex[0], 0);
+			glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, mainRenderTex[2], 0);
 			break;
 		case 3:
-			glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, mainRenderTex[0], 0);
+			glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, mainRenderTex[3], 0);
 			break;
 		default:
 			std::cout << "TOO MANY COLOR CHANELLS, PROGRAM MORE" << std::endl;
