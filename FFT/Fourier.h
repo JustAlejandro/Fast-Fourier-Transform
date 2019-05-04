@@ -24,6 +24,7 @@ private:
 	RenderPass* render;
 	Player* player;
 	vec4* light;
+	float spec = 0.0f;
 
 	const char* fourier_frag =
 #include "fourier.frag"

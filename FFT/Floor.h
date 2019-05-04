@@ -22,6 +22,7 @@ private:
 	RenderPass* render;
 	Player* player;
 	vec4* light;
+	float spec = 0.7;
 
 	const char* floor_frag =
 #include "floor.frag"

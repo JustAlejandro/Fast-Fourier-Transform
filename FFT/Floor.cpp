@@ -36,14 +36,16 @@ Floor::Floor(Player* p, vec4* light) {
 	std::function <mat4()> view_data = [this]() { return player->view; };
 	std::function <vec4()> light_data = [this]() { return *this->light; };
 	std::function <vec3()> pos_data = [this]() { return player->playerPos; };
+	std::function <float()> spec_data = [this]() { return spec; };
 
 	auto proj = make_uniform("projection", proj_data);
 	auto view = make_uniform("view", view_data);
 	auto l = make_uniform("light_position", light_data);
 	auto p_pos = make_uniform("camera_position", pos_data);
+	auto specs = make_uniform("specular", spec_data);
 
 	render = new RenderPass(-1, *input,
 		{ floor_vert, floor_geom, floor_frag },
-		{ proj, view, l, p_pos },
-		{ "fragment_color", "ss_Normal", "world_Pos" });
+		{ proj, view, l, p_pos, specs },
+		{ "fragment_color", "ss_Normal", "world_Pos", "spec" });
 }

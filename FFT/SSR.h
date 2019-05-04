@@ -22,11 +22,12 @@ private:
 	RenderPass* render;
 	GLint tex_loc;
 	GLint depSten;
+	GLint spec_loc;
 	GLuint framebuffer;
 	GLuint depth;
 	GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
 	const char* screen_frag =
-#include "screen.frag"
+#include "ssr.frag"
 		;
 	const char* screen_vert =
 #include "screen.vert"

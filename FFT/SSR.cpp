@@ -35,6 +35,8 @@ SSR::SSR() {
 	glUniform1i(tex_loc, 0);
 	depSten = glGetUniformLocation(render->sp_, "depSten");
 	CHECK_GL_ERROR(glUniform1i(depSten, 1));
+	spec_loc = glGetUniformLocation(render->sp_, "specular");
+	glUniform1i(spec_loc, 2);
 
 	frameBufferSetup(framebuffer, screen, depth, DrawBuffers, windowWidth, windowHeight);
 }
@@ -49,5 +51,7 @@ void SSR::toScreen(GLuint* mainRenderTex, GLuint& depth) {
 	glBindTexture(GL_TEXTURE_2D, mainRenderTex[0]);
 	glActiveTexture(GL_TEXTURE0 + 1);
 	glBindTexture(GL_TEXTURE_2D, depth);
+	glActiveTexture(GL_TEXTURE0 + 2);
+	glBindTexture(GL_TEXTURE_2D, mainRenderTex[3]);
 	CHECK_GL_ERROR(glDrawElements(GL_TRIANGLES, quad_faces.size() * 3, GL_UNSIGNED_INT, 0));
 }

@@ -108,6 +108,9 @@
     <None Include="fourier.vert">
       <Filter>Source Files\Objects\Fourier</Filter>
     </None>
+    <None Include="ssr.frag">
+      <Filter>Source Files\Passes\SSR</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="render_pass.h">

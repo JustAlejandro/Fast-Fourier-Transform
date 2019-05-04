@@ -6,9 +6,11 @@ in vec4 face_normal;
 in vec4 vertex_normal;
 in vec4 light_direction;
 in vec4 world_position;
+uniform float specular;
 layout(location = 0) out vec4 fragment_color;
 layout(location = 1) out vec4 ss_Normal;
 layout(location = 2) out vec4 world_Pos;
+layout(location = 3) out vec4 specs;
 float rand(vec2 co){
     return fract(sin(dot(co,co)));
 }
@@ -27,5 +29,6 @@ void main() {
 	fragment_color = vec4(color, 1.0);
 	ss_Normal = projection * view * normalize(norm);
 	world_Pos = world_position;
+	specs = vec4(specular,specular,specular,1.0);
 }
 )zzz"

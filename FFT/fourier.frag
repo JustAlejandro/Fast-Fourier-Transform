@@ -7,9 +7,11 @@ in vec4 vertex_normal;
 in vec4 light_direction;
 in vec4 world_position;
 in vec4 localPos;
+uniform float specular;
 layout(location = 0) out vec4 fragment_color;
 layout(location = 1) out vec4 ss_Normal;
 layout(location = 2) out vec4 world_Pos;
+layout(location = 3) out vec4 specs;
 void main() {
 	vec4 pos = world_position;
 	vec3 color = vec3(1.0, 0.0, 0.0);
@@ -19,5 +21,6 @@ void main() {
 	fragment_color = vec4(color, 1.0);
 	ss_Normal = projection * view * normalize(face_normal);
 	world_Pos = world_position;
+	specs = vec4(specular,specular,specular,1.0);
 }
 )zzz"

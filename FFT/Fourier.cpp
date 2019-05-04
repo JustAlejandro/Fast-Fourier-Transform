@@ -55,6 +55,7 @@ Fourier::Fourier(Player* p, vec4* light) {
 	std::function <vec3()> pos_data = [this]() { return player->playerPos; };
 	std::function <std::vector<float>()> buck_data = []() { return buckets; };
 	std::function <std::vector<vec3>()> loc_data = [this]() { return locations; };
+	std::function <float()> spec_data = [this]() { return spec; };
 
 	auto proj = make_uniform("projection", proj_data);
 	auto view = make_uniform("view", view_data);
@@ -62,9 +63,10 @@ Fourier::Fourier(Player* p, vec4* light) {
 	auto p_pos = make_uniform("camera_position", pos_data);
 	auto bucket = make_uniform("buckets", buck_data);
 	auto loc_uni = make_uniform("trans", loc_data);
+	auto specs = make_uniform("specular", spec_data);
 
 	render = new RenderPass(-1, *input,
 		{ fourier_vert, fourier_geom, fourier_frag },
 		{ proj, view, l, p_pos, bucket, loc_uni },
-		{ "fragment_color", "ss_Normal", "world_Pos" });
+		{ "fragment_color", "ss_Normal", "world_Pos", "spec" });
 }
