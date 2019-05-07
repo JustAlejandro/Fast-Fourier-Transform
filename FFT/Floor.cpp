@@ -47,5 +47,5 @@ Floor::Floor(Player* p, vec4* light) {
 	render = new RenderPass(-1, *input,
 		{ floor_vert, floor_geom, floor_frag },
 		{ proj, view, l, p_pos, specs },
-		{ "fragment_color", "ss_Normal", "world_Pos", "spec" });
+		{ "fragment_color", "vs_Normal", "world_Pos", "spec" });
 }

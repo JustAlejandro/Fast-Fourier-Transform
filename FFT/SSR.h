@@ -5,11 +5,12 @@
 #include <glm/gtx/string_cast.hpp>
 #include <glm/gtx/io.hpp>
 #include "render_pass.h"
+#include "Player.h"
 using namespace glm;
 //Handles the Screen Space Reflections Pass
 struct SSR {
 public:
-	SSR();
+	SSR(Player* p);
 	void toScreen(GLuint* mainRenderTex, GLuint& depth);
 
 	std::vector<vec4> quad_vert;
@@ -20,9 +21,12 @@ public:
 private:
 	RenderDataInput input;
 	RenderPass* render;
+	Player* player;
 	GLint tex_loc;
 	GLint depSten;
 	GLint spec_loc;
+	GLuint norm_loc;
+	GLuint ray_loc;
 	GLuint framebuffer;
 	GLuint depth;
 	GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };

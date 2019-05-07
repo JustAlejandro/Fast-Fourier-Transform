@@ -22,7 +22,7 @@ private:
 	GLint tex_loc;
 	GLint depSten;
 	const char* screen_frag =
-#include "ssr.frag"
+#include "screen.frag"
 		; 
 	const char* screen_vert =
 #include "screen.vert"

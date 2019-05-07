@@ -40,6 +40,12 @@ void frameBufferSetup(GLuint & FrameBuffer, GLuint* mainRenderTex, GLuint& depth
 		case 3:
 			glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, mainRenderTex[3], 0);
 			break;
+		case 4:
+			glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, mainRenderTex[4], 0);
+			break;
+		case 5:
+			glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT5, mainRenderTex[5], 0);
+			break;
 		default:
 			std::cout << "TOO MANY COLOR CHANELLS, PROGRAM MORE" << std::endl;
 			break;

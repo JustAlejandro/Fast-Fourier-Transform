@@ -11,7 +11,7 @@ out vec4 vs_camera_direction;
 void main() {
 	gl_Position = vertex_position;
 	vs_light_direction = light_position - gl_Position;
-	vs_camera_direction = vec4(camera_position, 1.0) - gl_Position;
+	vs_camera_direction = gl_Position - vec4(camera_position, 1.0);
 	vs_normal = normal;
 }
 )zzz"

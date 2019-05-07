@@ -19,15 +19,15 @@ int main(int argc, char* argv[]) {
 
 	//FrameBuffer setup
 	GLuint FrameBuffer, depth;
-	GLuint mainRenderTex[4] = { 1,1,1,1 };
-	GLenum DrawBuffers[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
-	frameBufferSetup(FrameBuffer, mainRenderTex, depth, DrawBuffers, windowWidth, windowHeight, 4);
+	GLuint mainRenderTex[5] = { 1,1,1,1,1 };
+	GLenum DrawBuffers[5] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4 };
+	frameBufferSetup(FrameBuffer, mainRenderTex, depth, DrawBuffers, windowWidth, windowHeight, 5);
 
 	Screen screen = Screen(&depth);
-	SSR ssr;
 	Player player;
 	//Class that'll hold all our objects
 	vec4 light = vec4(0.0, 10.0, 0.0, 1.0);
+	SSR ssr = SSR(&player);
 	World world = World(&player, &light);
 
 	while (!SDL_QuitRequested() && !player.quit) {
