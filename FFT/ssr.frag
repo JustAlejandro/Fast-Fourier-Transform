@@ -10,8 +10,10 @@ uniform sampler2D vs_Ray;
 uniform mat4 projection;
 
 vec4 toTextureSpace(vec4 r){
-	r.x = (r.x + 1.0) * 2.0;
-	r.y = (r.y + 1.0) * 2.0;
+	r.x = (r.x + 1.0) / 2.0;
+	//Aspect ration correction
+	r.y = ((r.y + 1.0) / 2.0) * (16.0/9.0);
+	r.z = (r.z + 1.0) / 2.0;
 	return r;
 }
 
@@ -30,36 +32,38 @@ bool traceRay(vec3 ray, vec4 color){
 	vec3 normal = texture(vs_Normals,tex_coord).xyz;
 
 	//Start postion in view Space
-	vec3 viewRay = normalize(texture(vs_Ray,tex_coord)).xyz;
-	viewRay.z = -1.0 * viewRay.z;
-	vec4 start = vec4((viewRay).xyz * texture(depSten,tex_coord).x,1.0);
+	vec3 viewRay = (texture(vs_Ray,tex_coord)).xyz;
+	vec4 start = vec4((viewRay).xyz,1.0);
+
+	//Reflected view space Ray
+	vec3 vsRefl = reflect(normalize(viewRay.xyz), normalize(normal));
 
 	//End Postition in view Space
-	vec4 end = start + vec4(ray * 1000, 1.0);
+	vec4 end = start + vec4(vsRefl * 10000, 1.0);
 
 	//Start Position in texture Space;
 	start = (projection * start);
 	start = toTextureSpace(start / start.w);
 
 	//End Position in texture Space
-	end = toTextureSpace(projection * start);
-	end = end / end.w;
+	end = (projection * end);
+	end = toTextureSpace(end / end.w);
 
-	vec4 pos = start;
-	vec4 refl = normalize(start - end);
+	vec4 tsRefl = vec4(normalize((end - start).xyz),1.0);
+	vec4 pos = start + tsRefl * 0.01;
 
 	bool hit = false;
 	int step = 0;
-	while(!hit && abs(pos.x) < 1.0 && abs(pos.y) < 1.0 && pos.z < 1.0 && pos.z > 0.0 && step < 10000){
+	while(!hit && (pos.x) < 1.0 && (pos.y) < 1.0 && pos.z < 1.0 && pos.z > 0.0 && step < 10000){
 		step++;
-		pos += refl * 0.0001;
-		if(abs(pos.z - (texture(depSten, vec2(pos.x, pos.y))).x) < 0.0001){
+		pos += tsRefl * 0.0001;
+		if(abs(pos.z - (texture(depSten, vec2(pos.x, pos.y))).x) < 0.00004){
 			hit = true;
 			fragment_color = texture(sampler, vec2(pos.x, pos.y));
 		}
 	}
-	fragment_color = refl;
-	fragment_color = start;
+	//fragment_color = tsRefl;
+	//fragment_color = start;
 	return true;
 }
 
