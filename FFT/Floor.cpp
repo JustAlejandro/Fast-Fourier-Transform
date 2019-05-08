@@ -8,6 +8,7 @@ const float kFloorZMax = 1000.0;
 const float kFloorZMin = -1000.0;
 
 void Floor::toScreen(int width, int height) {
+	time = time + 1.0;
 	render->setup();
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -37,15 +38,18 @@ Floor::Floor(Player* p, vec4* light) {
 	std::function <vec4()> light_data = [this]() { return *this->light; };
 	std::function <vec3()> pos_data = [this]() { return player->playerPos; };
 	std::function <float()> spec_data = [this]() { return spec; };
+	std::function <float()> time_data = [this]() { return time; };
+
 
 	auto proj = make_uniform("projection", proj_data);
 	auto view = make_uniform("view", view_data);
 	auto l = make_uniform("light_position", light_data);
 	auto p_pos = make_uniform("camera_position", pos_data);
 	auto specs = make_uniform("specular", spec_data);
+	auto time_uni = make_uniform("time", time_data);
 
 	render = new RenderPass(-1, *input,
 		{ floor_vert, floor_geom, floor_frag },
-		{ proj, view, l, p_pos, specs },
+		{ proj, view, l, p_pos, specs, time_uni },
 		{ "fragment_color", "vs_Normal", "world_Pos", "spec" });
 }

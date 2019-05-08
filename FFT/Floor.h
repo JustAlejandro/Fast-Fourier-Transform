@@ -23,6 +23,7 @@ private:
 	Player* player;
 	vec4* light;
 	float spec = 0.7;
+	float time = 0.0;
 
 	const char* floor_frag =
 #include "floor.frag"
