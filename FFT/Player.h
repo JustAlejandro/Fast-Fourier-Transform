@@ -6,10 +6,11 @@
 
 // This will handle our inputs as well as the Player's view and camera stuff.
 using namespace glm;
-struct Player {
+class Player {
+public:
 	float FOV = 45.0f;
-	float nearP = 5.0f;
-	float farP = 800.0f;
+	float nearP = 0.5f;
+	float farP = 600.0f;
 	bool quit = false;
 	mat4 camera;
 	mat4 projection = glm::perspective((float)(FOV * M_PI / 180.0f), aspect, nearP, farP);

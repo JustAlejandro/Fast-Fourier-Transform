@@ -108,6 +108,7 @@ bool initSDL() {
 	// Capture and hold the mouse position
 	CHECK_GL_ERROR(SDL_SetRelativeMouseMode(SDL_TRUE));
 
+
 	return true;
 }
 

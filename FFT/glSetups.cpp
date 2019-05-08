@@ -73,6 +73,9 @@ void toTextureSetup(int width, int height, GLuint& FrameBuffer)
 	glViewport(0, 0, width, height);
 	glEnable(GL_STENCIL_TEST);
 	glEnable(GL_DEPTH_TEST);
+	// Set ranges of the depth buffer to be linear
+	glDepthRange(0.0, 1.0);
+
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glDepthFunc(GL_LESS);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);

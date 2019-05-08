@@ -42,17 +42,19 @@ vec4 traceRay(){
 	end = toTextureSpace(end / end.w);
 
 	vec4 tsRefl = vec4(normalize((end - start).xyz),0.0);
-	vec4 pos = start + tsRefl * 0.01;
+	vec4 pos = start + tsRefl * 0.005;
 
 	bool hit = false;
 	int step = 0;
-	while(!hit && pos.x >= 0.0 && (pos.x) < 1.0 && pos.y >= 0.0 && (pos.y) < 1.0 && pos.z < 1.0 && pos.z > 0.0 && step < 3000){
+	while(!hit && pos.x >= 0.0 && (pos.x) < 1.0 && pos.y >= 0.0 && (pos.y) < 1.0 && pos.z < 1.0 && pos.z > 0.0 && step < 4000){
 		step++;
-		if(abs(pos.z - (texture(depSten, vec2(pos.x, pos.y))).x) < 0.0001 && texture(depSten, vec2(pos.x,pos.y)).x < 0.988){
+		//Found a problem where since the depth values aren't linear reflections at a distance wouldn't work. So now we depend on
+		//	reflected ray's depth value for hit detection.
+		if(abs(pos.z - (texture(depSten, vec2(pos.x, pos.y))).x) < tsRefl.z/2000 && texture(depSten, vec2(pos.x,pos.y)).x < 0.999){
 			hit = true;
 			return texture(sampler, vec2(pos.x, pos.y));
 		}
-		pos += tsRefl * 0.001;
+		pos += tsRefl * 0.0005;
 	}
 	return vec4(-1.0,-1.0,-1.0,-1.0);
 }
