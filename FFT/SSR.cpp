@@ -26,12 +26,15 @@ SSR::SSR(Player* p) {
 	std::function <mat4()> proj_data = [this]() { return player->projection; };
 	auto proj = make_uniform("projection", proj_data);
 
+	std::function <float()> aspec_data = [this]() {return aspect; };
+	auto aspect_uni = make_uniform("aspect", aspec_data);
+
 	//Setup RenderPass
 	render = new RenderPass(-1, input,
 		//Shaders
 		{ screen_vert, nullptr, screen_frag },
 		//Uniforms
-		{proj},
+		{proj, aspect_uni},
 		//Outputs
 		{ "fragment_color" });
 	render->setup();
@@ -46,7 +49,7 @@ SSR::SSR(Player* p) {
 	ray_loc = glGetUniformLocation(render->sp_, "vs_Ray");
 	glUniform1i(ray_loc, 4);
 
-	frameBufferSetup(framebuffer, screen, depth, DrawBuffers, windowWidth, windowHeight);
+	frameBufferSetup(framebuffer, screen, depth, DrawBuffers, windowWidth, windowHeight, 1);
 }
 
 void SSR::toScreen(GLuint* mainRenderTex, GLuint& depth) {

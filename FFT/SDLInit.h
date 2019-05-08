@@ -16,6 +16,7 @@
 
 extern int windowWidth;
 extern int windowHeight;
+extern float aspect;
 extern std::vector<float> buckets;
 extern float resScale;
 extern float renderScale;

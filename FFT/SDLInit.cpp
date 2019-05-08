@@ -33,6 +33,7 @@ Mix_Chunk* sound;
 SDL_DisplayMode dis;
 int windowWidth = 0;
 int windowHeight = 0;
+float aspect = 0;
 
 //Amount to scale each dimension for the window
 float resScale = 0.5;
@@ -56,6 +57,7 @@ bool initSDL() {
 	SDL_GetCurrentDisplayMode(0, &dis);
 	windowWidth = dis.w * resScale;
 	windowHeight = dis.h * resScale;
+	aspect = (float)windowWidth / (float)windowHeight;
 
 	//Init window to be resScale * resolution
 	window = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
