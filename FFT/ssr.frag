@@ -19,7 +19,7 @@ vec4 toTextureSpace(vec4 r){
 }
 
 //Here's where we'll trace our SS ray
-bool traceRay(vec4 color){
+vec4 traceRay(){
 	//Start position of the ray
 	vec3 normal = texture(vs_Normals,tex_coord).xyz;
 
@@ -50,11 +50,11 @@ bool traceRay(vec4 color){
 		step++;
 		if(abs(pos.z - (texture(depSten, vec2(pos.x, pos.y))).x) < 0.0001 && texture(depSten, vec2(pos.x,pos.y)).x < 0.988){
 			hit = true;
-			fragment_color = texture(sampler, vec2(pos.x, pos.y));
+			return texture(sampler, vec2(pos.x, pos.y));
 		}
 		pos += tsRefl * 0.001;
 	}
-	return hit;
+	return vec4(-1.0,-1.0,-1.0,-1.0);
 }
 
 void main() {
@@ -64,9 +64,9 @@ void main() {
 		return;
 	}
 	//Reflection running will be put in here.
-	vec4 rayCol = vec4(1.0);
-	if(traceRay(rayCol)){
-
+	vec4 rayCol = traceRay();
+	if(rayCol.w > -0.999){
+		fragment_color = rayCol * texture(specular, tex_coord).x + vec4(texture(sampler,tex_coord).xyz, 0.0);
 	}
 	else{
 		fragment_color = vec4(texture(sampler, tex_coord).xyz, 1.0);
