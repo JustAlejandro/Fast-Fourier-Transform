@@ -24,6 +24,6 @@ void main() {
 	vs_Normal = normalize(vec4((normalize(face_normal)).xyz, 0.0));
 	world_Pos = world_position;
 	specs = vec4(specular,specular,specular,1.0);
-	vs_Ray = camera_direction;
+	vs_Ray = view * world_position;
 }
 )zzz"

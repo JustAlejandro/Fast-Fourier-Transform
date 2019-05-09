@@ -22,20 +22,19 @@ float rand(vec2 co){
 }
 
 void main() {
-	fragment_color = vec4(texture(depSten, tex_coord).x, texture(depSten, tex_coord).x, texture(depSten, tex_coord).x, 1.0);
 	float ao = 0.0;
 	vec4 start = vec4(texture(vs_Ray, tex_coord).xyz, 1.0);
 
-	for(float i = 1; i <= 4; i++){
-		for(float j = 1; j <= 4; j++){
-			vec4 check = start + vec4(texture(noise,vec2(i / 4.0,j /4.0)).xyz, 0.0);
-			if(dot(texture(vs_Normals, tex_coord).xyz, normalize(check.xyz)) < 0.0) ;//continue;
+	for(float i = 0; i < 12; i++){
+		for(float j = 0; j < 12; j++){
+			vec4 check = start + vec4(texture(noise,vec2(i / 12.0,j /12.0)).xyz, 0.0) / (i / 2.0 + 5.0);
 			check = projection * check;
 			check = toTextureSpace(check / check.w);
 			fragment_color = check;
-			if(check.z < texture(depSten, vec2(check.x,check.y)).x || abs(check.z - texture(depSten, vec2(check.x,check.y)).x) > 0.01) ao += 1.0/8.0;
+			if(check.z <= texture(depSten, vec2(check.x,check.y)).x) ao += 1.0/72.0;
 		}
 	}
+	ao = min(ao + 0.1, 1.0);
 	fragment_color = vec4(ao,ao,ao,1.0);
 }
 )zzz"
