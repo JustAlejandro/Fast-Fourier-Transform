@@ -13,7 +13,7 @@ public:
 	float farP = 600.0f;
 	bool quit = false;
 	mat4 camera;
-	mat4 projection = glm::perspective((float)(FOV * M_PI / 180.0f), aspect, nearP, farP);
+	mat4 projection = glm::perspective(FOV, aspect, nearP, farP);
 	mat4 view;
 	// x = Left/Right , y = Up/Down
 	vec2 axis = vec2(0.0,0.0);

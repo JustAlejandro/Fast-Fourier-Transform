@@ -11,6 +11,8 @@
 #include "Player.h"
 #include "World.h"
 #include "SSR.h"
+#include "SSAO.h"
+#include "Merge.h"
 
 int main(int argc, char* argv[]) {
 	discordInit();
@@ -28,6 +30,8 @@ int main(int argc, char* argv[]) {
 	//Class that'll hold all our objects
 	vec4 light = vec4(0.0, 10.0, 0.0, 1.0);
 	SSR ssr = SSR(&player);
+	SSAO ssao = SSAO(&player);
+	Merge merge = Merge();
 	World world = World(&player, &light);
 
 	while (!SDL_QuitRequested() && !player.quit) {
@@ -35,8 +39,11 @@ int main(int argc, char* argv[]) {
 		toTextureSetup(windowWidth, windowHeight, FrameBuffer);
 		world.toScreen(windowWidth * renderScale, windowWidth * renderScale);
 		ssr.toScreen(mainRenderTex, depth);
+		ssao.toScreen(mainRenderTex, depth);
+		merge.toScreen(mainRenderTex[0], ssr.screen[0], ssao.screen[0], windowWidth, windowHeight);
 
-		screen.toScreen(ssr.screen[0], depth, windowWidth, windowHeight);
+		//screen.toScreen(ssr.screen[0], depth, windowWidth, windowHeight);
+		screen.toScreen(merge.screen[0], depth, windowWidth, windowHeight);
 
 		SDL_GL_SwapWindow(window);
 	}

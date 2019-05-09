@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Passes\SSR">
       <UniqueIdentifier>{9c5b9974-1505-4459-9ee8-4c90c940bd3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Passes\SSAO">
+      <UniqueIdentifier>{b9eb2201-c85e-4b51-9140-b5f0cf13a126}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Passes\Merge">
+      <UniqueIdentifier>{0f07c317-c08e-4633-bd7a-3625e38b6e62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,6 +84,12 @@
     <ClCompile Include="SSR.cpp">
       <Filter>Source Files\Passes\SSR</Filter>
     </ClCompile>
+    <ClCompile Include="SSAO.cpp">
+      <Filter>Source Files\Passes\SSAO</Filter>
+    </ClCompile>
+    <ClCompile Include="Merge.cpp">
+      <Filter>Source Files\Passes\Merge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll">
@@ -110,6 +122,12 @@
     </None>
     <None Include="ssr.frag">
       <Filter>Source Files\Passes\SSR</Filter>
+    </None>
+    <None Include="ssao.frag">
+      <Filter>Source Files\Passes\SSAO</Filter>
+    </None>
+    <None Include="merge.frag">
+      <Filter>Source Files\Passes\Merge</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +181,12 @@
     </ClInclude>
     <ClInclude Include="SSR.h">
       <Filter>Source Files\Passes\SSR</Filter>
+    </ClInclude>
+    <ClInclude Include="SSAO.h">
+      <Filter>Source Files\Passes\SSAO</Filter>
+    </ClInclude>
+    <ClInclude Include="Merge.h">
+      <Filter>Source Files\Passes\Merge</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
