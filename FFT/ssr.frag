@@ -62,16 +62,16 @@ vec4 traceRay(){
 void main() {
 	//Don't run reflections if specular not specified
 	if(texture(specular,tex_coord).x <= 0.01){
-		fragment_color = vec4(texture(sampler, tex_coord).xyz, 1.0);
+		fragment_color = vec4(0.0,0.0,0.0,1.0);//vec4(texture(sampler, tex_coord).xyz, 1.0);
 		return;
 	}
 	//Reflection running will be put in here.
 	vec4 rayCol = traceRay();
 	if(rayCol.w > -0.999){
-		fragment_color = rayCol * texture(specular, tex_coord).x + vec4(texture(sampler,tex_coord).xyz, 0.0);
+		fragment_color = rayCol * texture(specular, tex_coord).x;// + vec4(texture(sampler,tex_coord).xyz, 0.0);
 	}
 	else{
-		fragment_color = vec4(texture(sampler, tex_coord).xyz, 1.0);
+		fragment_color = vec4(0.0,0.0,0.0,1.0);//fragment_color = vec4(texture(sampler, tex_coord).xyz, 1.0);
 	}
 }
 )zzz"

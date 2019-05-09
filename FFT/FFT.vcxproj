@@ -151,6 +151,7 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SDLInit.cpp" />
     <ClCompile Include="shader_uniform.cc" />
+    <ClCompile Include="SSAO.cpp" />
     <ClCompile Include="SSR.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
@@ -165,6 +166,7 @@
     <None Include="screen.frag" />
     <None Include="screen.vert" />
     <None Include="SDL2.dll" />
+    <None Include="ssao.frag" />
     <None Include="ssr.frag" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +185,7 @@
     <ClInclude Include="Screen.h" />
     <ClInclude Include="SDLInit.h" />
     <ClInclude Include="shader_uniform.h" />
+    <ClInclude Include="SSAO.h" />
     <ClInclude Include="SSR.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
