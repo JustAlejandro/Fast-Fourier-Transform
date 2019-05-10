@@ -6,7 +6,7 @@
 #include <glm/gtx/io.hpp>
 #include "render_pass.h"
 #include "Player.h"
-#define HIST 8
+#define HIST 16
 using namespace glm;
 
 struct TAA {

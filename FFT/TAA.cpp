@@ -110,6 +110,6 @@ void TAA::toScreen(GLuint& mainRenderTex, GLuint& worldPos, int& width, int& hei
 	glBindTexture(GL_TEXTURE_2D_ARRAY, history);
 	glActiveTexture(GL_TEXTURE0 + 1);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, hisWorld);
-	
+
 	CHECK_GL_ERROR(glDrawElements(GL_TRIANGLES, quad_faces.size() * 3, GL_UNSIGNED_INT, 0));
 }

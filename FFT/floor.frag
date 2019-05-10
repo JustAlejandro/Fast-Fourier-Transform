@@ -15,7 +15,7 @@ layout(location = 2) out vec4 world_Pos;
 layout(location = 3) out vec4 specs;
 layout(location = 4) out vec4 vs_Ray;
 float rand(vec2 co){
-    return fract(sin(dot(co / 2.0,co / 2.0) - time / 5.0));
+    return fract(sin(dot(co / 8.0,co / 8.0) - time / 10.0));
 }
 
 void main() {
