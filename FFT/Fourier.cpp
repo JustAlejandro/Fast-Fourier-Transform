@@ -11,7 +11,7 @@ void Fourier::toScreen(int width, int height) {
 		GL_UNSIGNED_INT, 0, 7));
 }
 
-Fourier::Fourier(Player* p, vec4* light) {
+Fourier::Fourier(Player* p, std::vector<vec4>* l) {
 	verts.push_back(glm::vec4(0, 0, 0, 1.0));//BL 0
 	verts.push_back(glm::vec4(3, 0, 0, 1.0));//TL 1
 	verts.push_back(glm::vec4(3, 3, 0, 1.0));//TL 2
@@ -48,10 +48,11 @@ Fourier::Fourier(Player* p, vec4* light) {
 	soundPos = vec3(0.0, 0.0, -20.0);
 
 	player = p;
-	this->light = light;
+	this->light = l;
 	std::function <mat4()> proj_data = [this]() { return player->projection; };
 	std::function <mat4()> view_data = [this]() { return player->view; };
-	std::function <vec4()> light_data = [this]() { return *this->light; };
+	std::function <std::vector<vec4>()> light_data = [this]() { return *light; };
+	std::function <int()> light_count = [this]() { return light->size(); };
 	std::function <vec3()> pos_data = [this]() { return player->playerPos; };
 	std::function <std::vector<float>()> buck_data = []() { return buckets; };
 	std::function <std::vector<vec3>()> loc_data = [this]() { return locations; };
@@ -59,7 +60,8 @@ Fourier::Fourier(Player* p, vec4* light) {
 
 	auto proj = make_uniform("projection", proj_data);
 	auto view = make_uniform("view", view_data);
-	auto l = make_uniform("light_position", light_data);
+	auto light_uni = make_uniform("light_position", light_data);
+	auto light_c_uni = make_uniform("light_count", light_count);
 	auto p_pos = make_uniform("camera_position", pos_data);
 	auto bucket = make_uniform("buckets", buck_data);
 	auto loc_uni = make_uniform("trans", loc_data);
@@ -67,6 +69,6 @@ Fourier::Fourier(Player* p, vec4* light) {
 
 	render = new RenderPass(-1, *input,
 		{ fourier_vert, fourier_geom, fourier_frag },
-		{ proj, view, l, p_pos, bucket, loc_uni },
+		{ proj, view, light_uni, light_c_uni, p_pos, bucket, loc_uni },
 		{ "fragment_color", "vs_Normal", "world_Pos", "spec" });
 }

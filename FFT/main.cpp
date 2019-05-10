@@ -29,7 +29,10 @@ int main(int argc, char* argv[]) {
 	Screen screen = Screen(&depth);
 	Player player;
 	//Class that'll hold all our objects
-	vec4 light = vec4(0.0, 10.0, 0.0, 1.0);
+	std::vector<vec4> light;
+	light.push_back(vec4(-100.0, 10.0, 0.0, 1.0));
+	light.push_back(vec4(100.0, 10.0, 0.0, 1.0));
+	light.push_back(vec4(0.0, 10.0, 0.0, 1.0));
 	SSR ssr = SSR(&player);
 	SSAO ssao = SSAO(&player);
 	Merge merge = Merge();

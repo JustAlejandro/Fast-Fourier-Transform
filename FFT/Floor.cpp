@@ -1,11 +1,11 @@
 #include "Floor.h"
 #include "Player.h"
 
-const float kFloorXMin = -1000.0;
-const float kFloorXMax = 1000.0;
+const float kFloorXMin = -100.0;
+const float kFloorXMax = 100.0;
 const float kFloorY = 0.0;
-const float kFloorZMax = 1000.0;
-const float kFloorZMin = -1000.0;
+const float kFloorZMax = 100.0;
+const float kFloorZMin = -100.0;
 
 void Floor::toScreen(int width, int height) {
 	time = time + 1.0;
@@ -19,7 +19,7 @@ void Floor::toScreen(int width, int height) {
 		GL_UNSIGNED_INT, 0));
 }
 
-Floor::Floor(Player* p, vec4* l) {
+Floor::Floor(Player* p, std::vector<vec4>* l) {
 	verts.push_back(glm::vec4(kFloorXMin, kFloorY, kFloorZMax, 1.0f));
 	verts.push_back(glm::vec4(kFloorXMax, kFloorY, kFloorZMax, 1.0f));
 	verts.push_back(glm::vec4(kFloorXMax, kFloorY, kFloorZMin, 1.0f));
@@ -35,7 +35,8 @@ Floor::Floor(Player* p, vec4* l) {
 	this->light = l;
 	std::function <mat4()> proj_data = [this]() { return player->projection; };
 	std::function <mat4()> view_data = [this]() { return player->view; };
-	std::function <vec4()> light_data = [this]() { return *light; };
+	std::function <std::vector<vec4>()> light_data = [this]() { return *light; };
+	std::function <int()> light_count = [this]() { return light->size(); };
 	std::function <vec3()> pos_data = [this]() { return player->playerPos; };
 	std::function <float()> spec_data = [this]() { return spec; };
 	std::function <float()> time_data = [this]() { return time; };
@@ -44,12 +45,13 @@ Floor::Floor(Player* p, vec4* l) {
 	auto proj = make_uniform("projection", proj_data);
 	auto view = make_uniform("view", view_data);
 	auto light_uni = make_uniform("light_position", light_data);
+	auto light_c_uni = make_uniform("light_count", light_count);
 	auto p_pos = make_uniform("camera_position", pos_data);
 	auto specs = make_uniform("specular", spec_data);
 	auto time_uni = make_uniform("time", time_data);
 
 	render = new RenderPass(-1, *input,
 		{ floor_vert, floor_geom, floor_frag },
-		{ proj, view, light_uni, p_pos, specs, time_uni },
+		{ proj, view, light_uni, p_pos, specs, time_uni, light_c_uni },
 		{ "fragment_color", "vs_Normal", "world_Pos", "spec" });
 }

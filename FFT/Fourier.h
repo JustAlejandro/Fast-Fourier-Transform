@@ -12,7 +12,7 @@ using namespace glm;
 class Fourier : Object {
 public:
 	void toScreen(int width, int height);
-	Fourier(Player* p, vec4* light);
+	Fourier(Player* p, std::vector<vec4>* l);
 	virtual void iAm() { std::cout << "I am Object" << std::endl; };
 private:
 	std::vector<vec4> verts;
@@ -23,7 +23,7 @@ private:
 	RenderDataInput* input;
 	RenderPass* render;
 	Player* player;
-	vec4* light;
+	std::vector<vec4>* light;
 	float spec = 0.0f;
 
 	const char* fourier_frag =

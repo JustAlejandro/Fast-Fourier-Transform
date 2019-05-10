@@ -13,10 +13,7 @@ class World {
 public:
 	Floor floor;
 	Fourier fourier;
-	World(Player* p, vec4* light) : floor(p, light), fourier(p,light) {};
-	void toScreen(int width, int height) { floor.toScreen(width, height); fourier.toScreen(width, height); };
-
-private:
-
+	World(Player* p, std::vector<vec4>* light) : floor(p, light) , fourier(p, light) {};
+	void toScreen(int width, int height) { floor.toScreen(width, height), fourier.toScreen(width, height); };
 };
 #endif // !WORLD_H

@@ -12,7 +12,7 @@ using namespace glm;
 class Floor : Object{
 public:
 	void toScreen(int width, int height);
-	Floor(Player* p, vec4* l);
+	Floor(Player* p, std::vector<vec4>* l);
 	virtual void iAm() { std::cout << "I am Object" << std::endl; };
 private:
 	std::vector<vec4> verts;
@@ -21,7 +21,7 @@ private:
 	RenderDataInput* input;
 	RenderPass* render;
 	Player* player;
-	vec4* light;
+	std::vector<vec4>* light;
 	float spec = 0.7;
 	float time = 0.0;
 
