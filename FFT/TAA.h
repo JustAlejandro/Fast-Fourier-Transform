@@ -6,7 +6,7 @@
 #include <glm/gtx/io.hpp>
 #include "render_pass.h"
 #include "Player.h"
-#define HIST 6
+#define HIST 8
 using namespace glm;
 
 struct TAA {
@@ -21,11 +21,12 @@ public:
 	GLuint screen[1];
 	GLuint history;
 	GLuint hisWorld;
-	mat4 viewHist[HIST];
+	std::vector<mat4> viewHist;
 private:
 	RenderDataInput input;
 	RenderPass* render;
 	GLint tex_loc;
+	GLint world_loc;
 	Player* player;
 
 	GLuint framebuffer;

@@ -1,8 +1,21 @@
 // Have to know screen data
 #include "Player.h"
 
+Player::Player() {
+	//Generating our random vectors
+	for (int i = 0; i < 100; i++) {
+		glm::vec3 sample(
+			randomFloats(defRand) * 2.0 - 1.0,
+			randomFloats(defRand) * 2.0 - 1.0,
+			randomFloats(defRand) * 2.0 - 1.0);
+		sample = glm::normalize(sample) / 1000.0f;
+		jitter.push_back(sample);
+	}
+}
+
 void Player::update() {
 	takeInput();
+	time = (time + 1) % 100;
 	glm::vec3 up = glm::vec3(0, 1.0, 0);
 	glm::vec3 right = glm::vec3(1.0, 0, 0);
 	glm::vec3 forward = glm::vec3(0, 0, -1.0);
@@ -13,10 +26,16 @@ void Player::update() {
 	up = normalize(rot * vec4(up, 0.0));
 	right = normalize(rot * vec4(right, 0.0));
 
-	playerPos += right * (float)playerX + forward * (float)playerY;
-	playPosition = playerPos;
+	if (playerX == 0.0 && playerY == 0.0) {
+		vec3 pos = playerPos + jitter.at(time);
+		view = lookAt(pos, pos + forward, up);
+	}
+	else {
+		playerPos += right * (float)playerX + forward * (float)playerY;
+		playPosition = playerPos;
 
-	view = lookAt(playerPos, playerPos + forward, up);
+		view = lookAt(playerPos, playerPos + forward, up);
+	}	
 }
 
 void Player::takeInput() {

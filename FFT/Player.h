@@ -3,11 +3,13 @@
 #include <glm/gtx/string_cast.hpp>
 #include <glm/gtx/io.hpp>
 #include "SDLInit.h"
+#include <random>
 
 // This will handle our inputs as well as the Player's view and camera stuff.
 using namespace glm;
 class Player {
 public:
+	Player();
 	float FOV = 45.0f;
 	float nearP = 0.5f;
 	float farP = 600.0f;
@@ -27,7 +29,11 @@ public:
 	int playerY = 0;
 	vec3 playerPos = vec3(0.0,2.0,0.0);
 private:
+	int time = 0;
 	void takeInput();
+	std::uniform_real_distribution<float> randomFloats = std::uniform_real_distribution<float>(0.0, 1.0);
+	std::default_random_engine defRand;
+	std::vector<vec3> jitter;
 };
 
 
