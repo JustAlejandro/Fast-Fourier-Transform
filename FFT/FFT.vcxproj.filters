@@ -84,6 +84,12 @@
     <ClCompile Include="SSR.cpp">
       <Filter>Source Files\Passes\SSR</Filter>
     </ClCompile>
+    <ClCompile Include="Merge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SSAO.cpp">
+      <Filter>Source Files\Passes\SSAO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll">
@@ -116,6 +122,10 @@
     </None>
     <None Include="ssr.frag">
       <Filter>Source Files\Passes\SSR</Filter>
+    </None>
+    <None Include="merge.frag" />
+    <None Include="ssao.frag">
+      <Filter>Source Files\Passes\SSAO</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +179,12 @@
     </ClInclude>
     <ClInclude Include="SSR.h">
       <Filter>Source Files\Passes\SSR</Filter>
+    </ClInclude>
+    <ClInclude Include="Merge.h">
+      <Filter>UT Library</Filter>
+    </ClInclude>
+    <ClInclude Include="SSAO.h">
+      <Filter>Source Files\Passes\SSAO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

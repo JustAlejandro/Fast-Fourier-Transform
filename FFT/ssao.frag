@@ -2,7 +2,6 @@ R"zzz(#version 410 core
 layout(location = 0) out vec4 fragment_color;
 in vec2 tex_coord;
 uniform sampler2D depSten;
-uniform sampler2D vs_Normals;
 uniform sampler2D vs_Ray;
 uniform sampler2D noise;
 
@@ -17,24 +16,23 @@ vec4 toTextureSpace(vec4 r){
 	return r;
 }
 
-float rand(vec2 co){
-    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-}
-
 void main() {
 	float ao = 0.0;
 	vec4 start = vec4(texture(vs_Ray, tex_coord).xyz, 1.0);
 
 	for(float i = 0; i < 12; i++){
 		for(float j = 0; j < 12; j++){
-			vec4 check = start + vec4(texture(noise,vec2(i / 12.0,j /12.0)).xyz, 0.0) / (i / 2.0 + 5.0);
+			vec4 check = start + vec4(texture(noise,vec2(i / 12.0,j /12.0)).xyz, 0.0) / (i/4.0 + 1.0);
 			check = projection * check;
 			check = toTextureSpace(check / check.w);
 			fragment_color = check;
-			if(check.z <= texture(depSten, vec2(check.x,check.y)).x) ao += 1.0/72.0;
+			if(check.z <= texture(depSten, vec2(check.x,check.y)).x || abs(check.z - texture(depSten, vec2(check.x,check.y)).x) > 0.01) ao += 1.0/72.0;
 		}
 	}
-	ao = min(ao + 0.1, 1.0);
+	//Some minor readjustments to reduce the noise
+	if(ao > 0.8) ao = 1.0;
+	ao = min(ao, 1.0);
+
 	fragment_color = vec4(ao,ao,ao,1.0);
 }
 )zzz"

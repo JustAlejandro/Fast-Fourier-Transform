@@ -13,13 +13,13 @@ void Fourier::toScreen(int width, int height) {
 
 Fourier::Fourier(Player* p, vec4* light) {
 	verts.push_back(glm::vec4(0, 0, 0, 1.0));//BL 0
-	verts.push_back(glm::vec4(0, 1, 0, 1.0));//TL 1
-	verts.push_back(glm::vec4(1, 1, 0, 1.0));//TL 2
-	verts.push_back(glm::vec4(1, 0, 0, 1.0));//TR 3
-	verts.push_back(glm::vec4(0, 0, 1, 1.0));//BL 4
-	verts.push_back(glm::vec4(0, 1, 1, 1.0));//TL 5
-	verts.push_back(glm::vec4(1, 1, 1, 1.0));//TL 6 
-	verts.push_back(glm::vec4(1, 0, 1, 1.0));//TR 7
+	verts.push_back(glm::vec4(0, 3, 0, 1.0));//TL 1
+	verts.push_back(glm::vec4(3, 3, 0, 1.0));//TL 2
+	verts.push_back(glm::vec4(3, 0, 0, 1.0));//TR 3
+	verts.push_back(glm::vec4(0, 0, 3, 1.0));//BL 4
+	verts.push_back(glm::vec4(0, 3, 3, 1.0));//TL 5
+	verts.push_back(glm::vec4(3, 3, 3, 1.0));//TL 6 
+	verts.push_back(glm::vec4(3, 0, 3, 1.0));//TR 7
 	//Front?
 	faces.push_back(glm::uvec3(2, 1, 0));
 	faces.push_back(glm::uvec3(3, 2, 0));
@@ -43,7 +43,7 @@ Fourier::Fourier(Player* p, vec4* light) {
 	input->assign(0, "vertex_position", verts.data(), verts.size(), 4, GL_FLOAT);
 
 	for (int i = -3; i <= 3; i++) {
-		locations.push_back(vec3((float)i, 0.0, -20.0));
+		locations.push_back(vec3((float)i * 3, 0.0, -20.0));
 	}
 	soundPos = vec3(0.0, 0.0, -20.0);
 

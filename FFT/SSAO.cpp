@@ -19,7 +19,7 @@ SSAO::SSAO(Player* p) {
 	quad_faces.push_back(glm::uvec3(2, 3, 0));
 
 	//Generating our random vectors
-	for (int i = 0; i < 64; i++) {
+	for (int i = 0; i < 144; i++) {
 		glm::vec3 sample(
 			randomFloats(defRand) * 2.0 - 1.0,
 			randomFloats(defRand) * 2.0 - 1.0,
@@ -29,7 +29,7 @@ SSAO::SSAO(Player* p) {
 	}
 	glGenTextures(1, &randomNoise);
 	glBindTexture(GL_TEXTURE_2D, randomNoise);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 15, 15, 0, GL_RGB, GL_FLOAT, &SSAOSeed[0]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 12, 12, 0, GL_RGB, GL_FLOAT, &SSAOSeed[0]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
