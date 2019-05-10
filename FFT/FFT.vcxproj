@@ -98,6 +98,7 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\lib\utgraphicsutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +131,7 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>C:\OneDrive\OneDrive - The University of Texas at Austin\Game Tests\FFT\lib\utgraphicsutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="..\lib\utgraphicsutil\debuggl.cc" />
     <ClCompile Include="..\lib\utgraphicsutil\jpegio.cc" />
+    <ClCompile Include="Custom.cpp" />
     <ClCompile Include="discord.cpp" />
     <ClCompile Include="FFT.cpp" />
     <ClCompile Include="Floor.cpp" />
@@ -150,6 +153,7 @@
     <ClCompile Include="glSetups.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Merge.cpp" />
+    <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="render_pass.cc" />
     <ClCompile Include="Screen.cpp" />
@@ -160,6 +164,9 @@
     <ClCompile Include="TAA.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="custom.frag" />
+    <None Include="custom.geom" />
+    <None Include="custom.vert" />
     <None Include="floor.frag" />
     <None Include="floor.geom" />
     <None Include="floor.vert" />
@@ -181,12 +188,14 @@
     <ClInclude Include="..\lib\utgraphicsutil\jpegio.h" />
     <ClInclude Include="..\lib\utgraphicsutil\material.h" />
     <ClInclude Include="..\lib\utgraphicsutil\portable_gl.h" />
+    <ClInclude Include="Custom.h" />
     <ClInclude Include="FFT.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Fourier.h" />
     <ClInclude Include="glSetups.h" />
     <ClInclude Include="Merge.h" />
     <ClInclude Include="Objects.h" />
+    <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="render_pass.h" />
     <ClInclude Include="Screen.h" />

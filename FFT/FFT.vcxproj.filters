@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Passes\TAA">
       <UniqueIdentifier>{bf503cc5-4a19-45c4-a4d7-7d37d6f310bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Imports">
+      <UniqueIdentifier>{13c47041-ebd5-4f33-88b7-36132261ff6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,6 +96,12 @@
     <ClCompile Include="TAA.cpp">
       <Filter>Source Files\Passes\TAA</Filter>
     </ClCompile>
+    <ClCompile Include="ObjLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Custom.cpp">
+      <Filter>Source Files\Objects\Imports</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll">
@@ -134,6 +143,15 @@
     </None>
     <None Include="taa.frag">
       <Filter>Source Files\Passes\TAA</Filter>
+    </None>
+    <None Include="custom.vert">
+      <Filter>Source Files\Objects\Imports</Filter>
+    </None>
+    <None Include="custom.geom">
+      <Filter>Source Files\Objects\Imports</Filter>
+    </None>
+    <None Include="custom.frag">
+      <Filter>Source Files\Objects\Imports</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +214,12 @@
     </ClInclude>
     <ClInclude Include="TAA.h">
       <Filter>Source Files\Passes\TAA</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjLoader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Custom.h">
+      <Filter>Source Files\Objects\Imports</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

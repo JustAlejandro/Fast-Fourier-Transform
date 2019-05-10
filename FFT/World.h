@@ -4,6 +4,7 @@
 #include "Objects.h"
 #include "Floor.h"
 #include "Fourier.h"
+#include "Custom.h"
 #include <GL/glew.h>
 #include <glm/gtx/string_cast.hpp>
 #include <glm/gtx/io.hpp>
