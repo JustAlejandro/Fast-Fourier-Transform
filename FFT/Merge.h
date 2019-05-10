@@ -5,11 +5,12 @@
 #include <glm/gtx/string_cast.hpp>
 #include <glm/gtx/io.hpp>
 #include "render_pass.h"
+#include "Player.h"
 using namespace glm;
 //Generates the quad to render the texture on screen
 struct Merge {
 public:
-	Merge();
+	Merge(Player* p);
 	void toScreen(GLuint& mainRenderTex, GLuint& ssr, GLuint& ssao, int& width, int& height);
 
 	std::vector<vec4> quad_vert;
@@ -22,6 +23,7 @@ private:
 	GLint tex_loc;
 	GLint ssr_loc;
 	GLint ssao_loc;
+	Player* player;
 
 	GLuint framebuffer;
 	GLuint depth;

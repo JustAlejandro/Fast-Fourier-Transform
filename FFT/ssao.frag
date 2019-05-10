@@ -7,6 +7,8 @@ uniform sampler2D noise;
 
 uniform float aspect;
 uniform mat4 projection;
+uniform float zNear;
+uniform float zFar;
 
 vec4 toTextureSpace(vec4 r){
 	r.x = (r.x + 1.0) / 2.0;
@@ -14,6 +16,11 @@ vec4 toTextureSpace(vec4 r){
 	r.y = ((r.y + 1.0) / 2.0) * aspect;
 	r.z = (r.z + 1.0) / 2.0;
 	return r;
+}
+
+float linearize_depth(float d)
+{
+    return zNear * zFar / (zFar + d * (zNear - zFar));
 }
 
 void main() {
@@ -26,7 +33,8 @@ void main() {
 			check = projection * check;
 			check = toTextureSpace(check / check.w);
 			fragment_color = check;
-			if(check.z <= texture(depSten, vec2(check.x,check.y)).x || abs(check.z - texture(depSten, vec2(check.x,check.y)).x) > 0.01) ao += 1.0/72.0;
+			if(check.z <= texture(depSten, vec2(check.x,check.y)).x 
+				|| abs(linearize_depth(check.z) - linearize_depth(texture(depSten, vec2(check.x,check.y)).x)) > 3.0) ao += 1.0/72.0;
 		}
 	}
 	//Some minor readjustments to reduce the noise

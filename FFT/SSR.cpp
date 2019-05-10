@@ -29,12 +29,18 @@ SSR::SSR(Player* p) {
 	std::function <float()> aspec_data = [this]() {return aspect; };
 	auto aspect_uni = make_uniform("aspect", aspec_data);
 
+	std::function <float()> near_data = [this]() {return player->nearP; };
+	auto near_uni = make_uniform("zNear", near_data);
+
+	std::function <float()> far_data = [this]() {return player->farP; };
+	auto far_uni = make_uniform("zFar", far_data);
+
 	//Setup RenderPass
 	render = new RenderPass(-1, input,
 		//Shaders
 		{ screen_vert, nullptr, screen_frag },
 		//Uniforms
-		{proj, aspect_uni},
+		{ proj, aspect_uni, near_uni, far_uni },
 		//Outputs
 		{ "fragment_color" });
 	render->setup();

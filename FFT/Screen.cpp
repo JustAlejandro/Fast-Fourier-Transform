@@ -1,7 +1,8 @@
 #include "Screen.h"
 
-Screen::Screen(GLuint* depth)
+Screen::Screen(Player* p, GLuint* depth)
 {
+	player = p;
 	//Setup verts
 	quad_vert.push_back(glm::vec4(-1.0f, -1.0f, 0.5, 1.0f));
 	quad_vert.push_back(glm::vec4(1.0f, -1.0f, 0.5, 1.0f));
@@ -21,12 +22,15 @@ Screen::Screen(GLuint* depth)
 	input.assign(0, "vertex_position", quad_vert.data(), quad_vert.size(), 4, GL_FLOAT);
 	input.assign(1, "tex_coord_in", quad_uv.data(), quad_uv.size(), 2, GL_FLOAT);
 
+	std::function <int()> ssr_data = [this]() { return player->ssr; };
+	auto ssr_uni = make_uniform("ssr", ssr_data);
+
 	//Setup RenderPass
 	render = new RenderPass(-1, input, 
 		//Shaders
 		{ screen_vert, nullptr, screen_frag }, 
 		//Uniforms
-		{}, 
+		{ ssr_uni }, 
 		//Outputs
 		{ "fragment_color" });
 	render->setup();
@@ -34,9 +38,12 @@ Screen::Screen(GLuint* depth)
 	glUniform1i(tex_loc, 0);
 	depSten = glGetUniformLocation(render->sp_, "depSten");
 	CHECK_GL_ERROR(glUniform1i(depSten, 1));
+
+	ssr_loc = glGetUniformLocation(render->sp_, "SSR");
+	CHECK_GL_ERROR(glUniform1i(ssr_loc, 2));
 }
 
-void Screen::toScreen(GLuint& mainRenderTex, GLuint& depth, int& width, int& height)
+void Screen::toScreen(GLuint& mainRenderTex, GLuint& SSR, GLuint& depth, int& width, int& height)
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, width, height);
@@ -47,5 +54,8 @@ void Screen::toScreen(GLuint& mainRenderTex, GLuint& depth, int& width, int& hei
 	glBindTexture(GL_TEXTURE_2D, mainRenderTex);
 	glActiveTexture(GL_TEXTURE0 + 1);
 	glBindTexture(GL_TEXTURE_2D, depth);
+	glActiveTexture(GL_TEXTURE0 + 2);
+	glBindTexture(GL_TEXTURE_2D, SSR);
+
 	CHECK_GL_ERROR(glDrawElements(GL_TRIANGLES, quad_faces.size() * 3, GL_UNSIGNED_INT, 0));
 }

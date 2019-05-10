@@ -26,8 +26,8 @@ int main(int argc, char* argv[]) {
 	GLenum DrawBuffers[5] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4 };
 	frameBufferSetup(FrameBuffer, mainRenderTex, depth, DrawBuffers, windowWidth, windowHeight, 5);
 
-	Screen screen = Screen(&depth);
 	Player player;
+	Screen screen = Screen(&player, &depth);
 	//Class that'll hold all our objects
 	std::vector<vec4> light;
 	light.push_back(vec4(-100.0, 10.0, 0.0, 1.0));
@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 	light.push_back(vec4(0.0, 10.0, 0.0, 1.0));
 	SSR ssr = SSR(&player);
 	SSAO ssao = SSAO(&player);
-	Merge merge = Merge();
+	Merge merge = Merge(&player);
 	TAA taa = TAA(&player);
 	World world = World(&player, &light);
 
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 		merge.toScreen(mainRenderTex[0], ssr.screen[0], ssao.screen[0], windowWidth, windowHeight);
 		taa.toScreen(merge.screen[0], mainRenderTex[2], windowWidth, windowHeight);
 
-		screen.toScreen(taa.screen[0], depth, windowWidth, windowHeight);
+		screen.toScreen(taa.screen[0], ssr.screen[0], depth, windowWidth, windowHeight);
 
 		SDL_GL_SwapWindow(window);
 	}

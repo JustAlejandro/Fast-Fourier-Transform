@@ -2,7 +2,8 @@
 #include "glSetups.h"
 #include "SDLInit.h"
 
-Merge::Merge() {
+Merge::Merge(Player* p) {
+	player = p;
 	//Setup verts
 	quad_vert.push_back(glm::vec4(-1.0f, -1.0f, 0.5, 1.0f));
 	quad_vert.push_back(glm::vec4(1.0f, -1.0f, 0.5, 1.0f));
@@ -22,12 +23,15 @@ Merge::Merge() {
 	input.assign(0, "vertex_position", quad_vert.data(), quad_vert.size(), 4, GL_FLOAT);
 	input.assign(1, "tex_coord_in", quad_uv.data(), quad_uv.size(), 2, GL_FLOAT);
 
+	std::function <int()> ssao_data = [this]() { return player->ssao; };
+	auto ssao_uni = make_uniform("ssao", ssao_data);
+
 	//Setup RenderPass
 	render = new RenderPass(-1, input,
 		//Shaders
 		{ screen_vert, nullptr, screen_frag },
 		//Uniforms
-		{},
+		{ ssao_uni },
 		//Outputs
 		{ "fragment_color" });
 	render->setup();

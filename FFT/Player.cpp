@@ -8,7 +8,7 @@ Player::Player() {
 			randomFloats(defRand) * 2.0 - 1.0,
 			randomFloats(defRand) * 2.0 - 1.0,
 			randomFloats(defRand) * 2.0 - 1.0);
-		sample = glm::normalize(sample) / 1000.0f;
+		sample = glm::normalize(sample) / 300.0f;
 		jitter.push_back(sample);
 	}
 }
@@ -26,16 +26,10 @@ void Player::update() {
 	up = normalize(rot * vec4(up, 0.0));
 	right = normalize(rot * vec4(right, 0.0));
 
-	if (playerX == 0.0 && playerY == 0.0) {
-		vec3 pos = playerPos + jitter.at(time);
-		view = lookAt(pos, pos + forward, up);
-	}
-	else {
-		playerPos += right * (float)playerX + forward * (float)playerY;
-		playPosition = playerPos;
-
-		view = lookAt(playerPos, playerPos + forward, up);
-	}	
+	playerPos += right * (float)playerX + forward * (float)playerY;
+	playPosition = playerPos;
+	vec3 pos = playerPos + jitter.at(time);
+	view = lookAt(pos, pos + forward, up);
 }
 
 void Player::takeInput() {
@@ -59,6 +53,15 @@ void Player::takeInput() {
 				break;
 			case SDLK_ESCAPE:
 				quit = true;
+				break;
+			case SDLK_1:
+				ssr = !ssr;
+				break; 
+			case SDLK_2:
+				ssao = !ssao;
+				break;
+			case SDLK_3:
+				taa = !taa;
 				break;
 			}
 			break;

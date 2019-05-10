@@ -10,12 +10,20 @@ uniform sampler2D vs_Ray;
 uniform float aspect;
 uniform mat4 projection;
 
+uniform float zNear;
+uniform float zFar;
+
 vec4 toTextureSpace(vec4 r){
 	r.x = (r.x + 1.0) / 2.0;
 	//Aspect ration correction
 	r.y = ((r.y + 1.0) / 2.0) * aspect;
 	r.z = (r.z + 1.0) / 2.0;
 	return r;
+}
+
+float linearize_depth(float d)
+{
+    return zNear * zFar / (zFar + d * (zNear - zFar));
 }
 
 //Here's where we'll trace our SS ray
@@ -30,8 +38,13 @@ vec4 traceRay(){
 	//Reflected view space Ray
 	vec3 vsRefl = reflect(normalize(viewRay.xyz), normalize(normal));
 
+	//Normal position
+	vec4 normalEnd = start + vec4(normal * 50, 0.0);
+	normalEnd = projection * normalEnd;
+	normalEnd = toTextureSpace(normalEnd / normalEnd.w);
+
 	//End Postition in view Space
-	vec4 end = start + vec4(vsRefl * 1000000, 1.0);
+	vec4 end = start + vec4(vsRefl * 1000, 1.0);
 
 	//Start Position in texture Space;
 	start = (projection * start);
@@ -42,7 +55,8 @@ vec4 traceRay(){
 	end = toTextureSpace(end / end.w);
 
 	vec4 tsRefl = vec4(normalize((end - start).xyz),0.0);
-	vec4 pos = start + tsRefl * 0.005;
+	vec4 tsNorm = vec4(normalize((normalEnd - start).xyz),0.0);
+	vec4 pos = start + tsNorm * 0.005;
 
 	bool hit = false;
 	int step = 0;
@@ -50,7 +64,7 @@ vec4 traceRay(){
 		step++;
 		//Found a problem where since the depth values aren't linear reflections at a distance wouldn't work. So now we depend on
 		//	reflected ray's depth value for hit detection.
-		if(abs(pos.z - (texture(depSten, vec2(pos.x, pos.y))).x) < tsRefl.z/2000 && texture(depSten, vec2(pos.x,pos.y)).x < 0.999){
+		if(abs(linearize_depth(pos.z) - linearize_depth(texture(depSten, vec2(pos.x, pos.y)).x)) < 0.04 && texture(depSten, vec2(pos.x,pos.y)).x < 0.999){
 			hit = true;
 			return texture(sampler, vec2(pos.x, pos.y));
 		}
@@ -68,10 +82,10 @@ void main() {
 	//Reflection running will be put in here.
 	vec4 rayCol = traceRay();
 	if(rayCol.w > -0.999){
-		fragment_color = rayCol * texture(specular, tex_coord).x;// + vec4(texture(sampler,tex_coord).xyz, 0.0);
+		fragment_color = rayCol * texture(specular, tex_coord).x;
 	}
 	else{
-		fragment_color = vec4(0.0,0.0,0.0,1.0);//fragment_color = vec4(texture(sampler, tex_coord).xyz, 1.0);
+		fragment_color = vec4(0.0,0.0,0.0,1.0);
 	}
 }
 )zzz"

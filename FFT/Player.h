@@ -27,7 +27,10 @@ public:
 	// Handles direction of player movement
 	int playerX = 0;
 	int playerY = 0;
-	vec3 playerPos = vec3(0.0,2.0,0.0);
+	vec3 playerPos = vec3(0.0,10.0,5.0);
+	bool ssr = true;
+	bool ssao = true;
+	bool taa = true;
 private:
 	int time = 0;
 	void takeInput();

@@ -15,19 +15,14 @@ layout(location = 1) out vec4 vs_Normal;
 layout(location = 2) out vec4 world_Pos;
 layout(location = 3) out vec4 specs;
 layout(location = 4) out vec4 vs_Ray;
-float rand(vec2 co){
-    return fract(sin(dot(abs(co / 8.0),abs(co / 8.0)) - time / 10.0));
-}
 
 void main() {
 	vec4 pos = world_position;
 	float check_width = 5.0;
-	float i = floor(pos.x / check_width);
+	float i = floor((pos.x + time * 0.01) / check_width);
 	float j  = floor(pos.z / check_width);
 	vec3 color = mod(i + j, 2) * vec3(1.0, 1.0, 1.0);
-	vec2 rands = vec2(rand(vec2(world_position.x, world_position.z)), rand(vec2(world_position.x, world_position.z)));
-	vec4 randoms = vec4(rands.x * 0.2, 0.0, rands.y * 0.2, 0.0);
-	vec4 norm = normalize(view * normalize(face_normal + randoms));
+	vec4 norm = normalize(view * normalize(face_normal));
 	float dot_nl = 0.0f;
 	for(int i = 0; i < light_count; i++){
 		dot_nl += abs(dot(normalize(light_direction[i].xyz), (norm.xyz)));
@@ -35,7 +30,7 @@ void main() {
 	dot_nl = clamp(dot_nl, 0.0, 1.0);
 	color = clamp(dot_nl * color, 0.0, 1.0);
 	fragment_color = vec4(color, 1.0);
-	vs_Normal = normalize(vec4(((norm)).xyz, 0.0));
+	vs_Normal = vec4(norm.xyz, 0.0);
 	world_Pos = world_position;
 	specs = vec4(specular,specular,specular,1.0);
 	vs_Ray = (view * world_position);

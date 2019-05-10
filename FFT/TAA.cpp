@@ -36,12 +36,15 @@ TAA::TAA(Player* p) {
 	std::function<std::vector<mat4>()> view_data = [this]() {return viewHist; };
 	auto view_uni = make_uniform("view", view_data);
 
+	std::function<int()> taa_data = [this]() {return player->taa; };
+	auto taa_uni = make_uniform("taa", taa_data);
+
 	//Setup RenderPass
 	render = new RenderPass(-1, input,
 		//Shaders
 		{ screen_vert, nullptr, screen_frag },
 		//Uniforms
-		{ proj, aspect_uni, view_uni },
+		{ proj, aspect_uni, view_uni, taa_uni },
 		//Outputs
 		{ "fragment_color" });
 	render->setup();

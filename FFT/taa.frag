@@ -7,6 +7,7 @@ uniform sampler2DArray world;
 uniform mat4 view[16];
 uniform mat4 projection;
 uniform float aspect;
+uniform int taa;
 
 float distro[16] = float[](0.891,0.794,0.707,0.629,0.561,0.5,0.445,0.397,0.353,0.314,0.280,0.25,0.222,0.198,0.177,0.140);
 
@@ -19,7 +20,10 @@ vec4 toTextureSpace(vec4 r){
 }
 
 void main() {
-	fragment_color = vec4(texture(history, vec3(tex_coord, 0)).xyz, 1.0);
+	if(taa == 0){
+		fragment_color = vec4(texture(history, vec3(tex_coord, 0)).xyz, 1.0);
+		return;
+	}
 	vec4 color =  vec4(0.0,0.0,0.0,0.0);
 	if(texture(world, vec3(tex_coord, 0)) == vec4(0.0,0.0,0.0,1.0)) return;
 	for(int i = 0; i < 16; i++){
