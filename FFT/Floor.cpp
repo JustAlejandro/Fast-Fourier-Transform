@@ -19,7 +19,7 @@ void Floor::toScreen(int width, int height) {
 		GL_UNSIGNED_INT, 0));
 }
 
-Floor::Floor(Player* p, vec4* light) {
+Floor::Floor(Player* p, vec4* l) {
 	verts.push_back(glm::vec4(kFloorXMin, kFloorY, kFloorZMax, 1.0f));
 	verts.push_back(glm::vec4(kFloorXMax, kFloorY, kFloorZMax, 1.0f));
 	verts.push_back(glm::vec4(kFloorXMax, kFloorY, kFloorZMin, 1.0f));
@@ -32,10 +32,10 @@ Floor::Floor(Player* p, vec4* light) {
 	input->assign(0, "vertex_position", verts.data(), verts.size(), 4, GL_FLOAT);
 
 	player = p;
-	this->light = light;
+	this->light = l;
 	std::function <mat4()> proj_data = [this]() { return player->projection; };
 	std::function <mat4()> view_data = [this]() { return player->view; };
-	std::function <vec4()> light_data = [this]() { return *this->light; };
+	std::function <vec4()> light_data = [this]() { return *light; };
 	std::function <vec3()> pos_data = [this]() { return player->playerPos; };
 	std::function <float()> spec_data = [this]() { return spec; };
 	std::function <float()> time_data = [this]() { return time; };
@@ -43,13 +43,13 @@ Floor::Floor(Player* p, vec4* light) {
 
 	auto proj = make_uniform("projection", proj_data);
 	auto view = make_uniform("view", view_data);
-	auto l = make_uniform("light_position", light_data);
+	auto light_uni = make_uniform("light_position", light_data);
 	auto p_pos = make_uniform("camera_position", pos_data);
 	auto specs = make_uniform("specular", spec_data);
 	auto time_uni = make_uniform("time", time_data);
 
 	render = new RenderPass(-1, *input,
 		{ floor_vert, floor_geom, floor_frag },
-		{ proj, view, l, p_pos, specs, time_uni },
+		{ proj, view, light_uni, p_pos, specs, time_uni },
 		{ "fragment_color", "vs_Normal", "world_Pos", "spec" });
 }

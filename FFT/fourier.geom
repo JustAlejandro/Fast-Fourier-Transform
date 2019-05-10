@@ -24,7 +24,7 @@ void main() {
 	vec3 c = gl_in[2].gl_Position.xyz;
 	vec3 u = normalize(b - a);
 	vec3 v = normalize(c - a);
-	face_normal = view * normalize(vec4(normalize(cross(u, v)), 0.0));
+	face_normal = normalize(view * vec4(normalize(cross(u, v)), 0.0));
 	for (n = 0; n < gl_in.length(); n++) {
 		localPos = vs_local[n];
 		light_direction = normalize(view * vs_light_direction[n]);

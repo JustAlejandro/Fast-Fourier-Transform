@@ -154,7 +154,7 @@
     <ClCompile Include="shader_uniform.cc" />
     <ClCompile Include="SSAO.cpp" />
     <ClCompile Include="SSR.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClCompile Include="TAA.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="floor.frag" />
@@ -170,6 +170,7 @@
     <None Include="SDL2.dll" />
     <None Include="ssao.frag" />
     <None Include="ssr.frag" />
+    <None Include="taa.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\utgraphicsutil\debuggl.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="shader_uniform.h" />
     <ClInclude Include="SSAO.h" />
     <ClInclude Include="SSR.h" />
+    <ClInclude Include="TAA.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

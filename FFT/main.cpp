@@ -13,6 +13,7 @@
 #include "SSR.h"
 #include "SSAO.h"
 #include "Merge.h"
+#include "TAA.h"
 
 int main(int argc, char* argv[]) {
 	discordInit();
@@ -32,6 +33,7 @@ int main(int argc, char* argv[]) {
 	SSR ssr = SSR(&player);
 	SSAO ssao = SSAO(&player);
 	Merge merge = Merge();
+	TAA taa = TAA(&player);
 	World world = World(&player, &light);
 
 	while (!SDL_QuitRequested() && !player.quit) {
@@ -41,9 +43,9 @@ int main(int argc, char* argv[]) {
 		ssr.toScreen(mainRenderTex, depth);
 		ssao.toScreen(mainRenderTex, depth);
 		merge.toScreen(mainRenderTex[0], ssr.screen[0], ssao.screen[0], windowWidth, windowHeight);
+		taa.toScreen(merge.screen[0], mainRenderTex[2], windowWidth, windowHeight);
 
-		//screen.toScreen(ssr.screen[0], depth, windowWidth, windowHeight);
-		screen.toScreen(merge.screen[0], depth, windowWidth, windowHeight);
+		screen.toScreen(taa.screen[0], depth, windowWidth, windowHeight);
 
 		SDL_GL_SwapWindow(window);
 	}

@@ -12,7 +12,7 @@ using namespace glm;
 class Floor : Object{
 public:
 	void toScreen(int width, int height);
-	Floor(Player* p, vec4* light);
+	Floor(Player* p, vec4* l);
 	virtual void iAm() { std::cout << "I am Object" << std::endl; };
 private:
 	std::vector<vec4> verts;

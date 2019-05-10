@@ -13,31 +13,31 @@ void Fourier::toScreen(int width, int height) {
 
 Fourier::Fourier(Player* p, vec4* light) {
 	verts.push_back(glm::vec4(0, 0, 0, 1.0));//BL 0
-	verts.push_back(glm::vec4(0, 3, 0, 1.0));//TL 1
+	verts.push_back(glm::vec4(3, 0, 0, 1.0));//TL 1
 	verts.push_back(glm::vec4(3, 3, 0, 1.0));//TL 2
-	verts.push_back(glm::vec4(3, 0, 0, 1.0));//TR 3
+	verts.push_back(glm::vec4(0, 3, 0, 1.0));//TR 3
 	verts.push_back(glm::vec4(0, 0, 3, 1.0));//BL 4
-	verts.push_back(glm::vec4(0, 3, 3, 1.0));//TL 5
+	verts.push_back(glm::vec4(3, 0, 3, 1.0));//TL 5
 	verts.push_back(glm::vec4(3, 3, 3, 1.0));//TL 6 
-	verts.push_back(glm::vec4(3, 0, 3, 1.0));//TR 7
+	verts.push_back(glm::vec4(0, 3, 3, 1.0));//TR 7
 	//Front?
-	faces.push_back(glm::uvec3(2, 1, 0));
-	faces.push_back(glm::uvec3(3, 2, 0));
+	faces.push_back(glm::uvec3(3, 1, 0));
+	faces.push_back(glm::uvec3(2, 1, 3));
 	//Back
-	faces.push_back(glm::uvec3(7, 6, 5));
-	faces.push_back(glm::uvec3(7, 5, 4));
+	faces.push_back(glm::uvec3(2, 5, 1));
+	faces.push_back(glm::uvec3(6, 5, 2));
 	//Left
-	faces.push_back(glm::uvec3(0, 1, 5));
-	faces.push_back(glm::uvec3(5, 4, 0));
+	faces.push_back(glm::uvec3(6, 4, 5));
+	faces.push_back(glm::uvec3(7, 4, 6));
 	//Right?
-	faces.push_back(glm::uvec3(2, 6, 7));
-	faces.push_back(glm::uvec3(7, 3, 2));
+	faces.push_back(glm::uvec3(7, 0, 4));
+	faces.push_back(glm::uvec3(3, 0, 7));
 	//Top?
-	faces.push_back(glm::uvec3(1, 2, 6));
-	faces.push_back(glm::uvec3(6, 5, 1));
+	faces.push_back(glm::uvec3(7, 2, 3));
+	faces.push_back(glm::uvec3(6, 2, 7));
 	//Bot?
-	faces.push_back(glm::uvec3(4, 3, 0));
-	faces.push_back(glm::uvec3(3, 4, 7));
+	faces.push_back(glm::uvec3(0, 5, 4));
+	faces.push_back(glm::uvec3(1, 5, 0));
 	input = new RenderDataInput();
 	input->assignIndex(faces.data(), faces.size(), 3);
 	input->assign(0, "vertex_position", verts.data(), verts.size(), 4, GL_FLOAT);

@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Passes\Merge">
       <UniqueIdentifier>{0f07c317-c08e-4633-bd7a-3625e38b6e62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Passes\TAA">
+      <UniqueIdentifier>{bf503cc5-4a19-45c4-a4d7-7d37d6f310bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -66,9 +69,6 @@
     <ClCompile Include="SDLInit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Screen.cpp">
       <Filter>Source Files\Passes\Screen</Filter>
     </ClCompile>
@@ -84,11 +84,14 @@
     <ClCompile Include="SSR.cpp">
       <Filter>Source Files\Passes\SSR</Filter>
     </ClCompile>
-    <ClCompile Include="Merge.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SSAO.cpp">
       <Filter>Source Files\Passes\SSAO</Filter>
+    </ClCompile>
+    <ClCompile Include="Merge.cpp">
+      <Filter>Source Files\Passes\Merge</Filter>
+    </ClCompile>
+    <ClCompile Include="TAA.cpp">
+      <Filter>Source Files\Passes\TAA</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +126,14 @@
     <None Include="ssr.frag">
       <Filter>Source Files\Passes\SSR</Filter>
     </None>
-    <None Include="merge.frag" />
     <None Include="ssao.frag">
       <Filter>Source Files\Passes\SSAO</Filter>
+    </None>
+    <None Include="merge.frag">
+      <Filter>Source Files\Passes\Merge</Filter>
+    </None>
+    <None Include="taa.frag">
+      <Filter>Source Files\Passes\TAA</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -180,11 +188,14 @@
     <ClInclude Include="SSR.h">
       <Filter>Source Files\Passes\SSR</Filter>
     </ClInclude>
-    <ClInclude Include="Merge.h">
-      <Filter>UT Library</Filter>
-    </ClInclude>
     <ClInclude Include="SSAO.h">
       <Filter>Source Files\Passes\SSAO</Filter>
+    </ClInclude>
+    <ClInclude Include="Merge.h">
+      <Filter>Source Files\Passes\Merge</Filter>
+    </ClInclude>
+    <ClInclude Include="TAA.h">
+      <Filter>Source Files\Passes\TAA</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
