@@ -12,7 +12,7 @@
 //Program name
 const char* name = "JustRender";
 //Song Path
-static const char* BOOM_BOOM = "C:\\Users\\Alejandro\\Music\\ordinary.wav";
+static const char* BOOM_BOOM = "ordinary.wav";
 //Holds the music frequency values, sorted into buckets to display later
 std::vector<float> bucketDirty(7, 0.0);
 std::vector<float> buckets(7,0.0);
@@ -98,7 +98,7 @@ bool initSDL() {
 	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 1024);
 	sound = Mix_LoadWAV(BOOM_BOOM);
 	if (sound == NULL) {
-		std::cout << "Something Broke" << std::endl;
+		std::cout << "No 'ordinary.wav' found." << std::endl;
 		return 0;
 	}
 
